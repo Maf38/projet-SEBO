@@ -1,0 +1,617 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="sebocestpasbeauModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="adresse">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="numero" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="rue" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ville" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="codepostale" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="article">
+          <Key>
+            <PropertyRef Name="reference" />
+          </Key>
+          <Property Name="reference" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="titre" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="editeur" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="auteur" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="2000" />
+          <Property Name="prix" Type="float" Nullable="false" />
+          <Property Name="image" Type="varchar" MaxLength="50" />
+          <Property Name="reassort" Type="bit" Nullable="false" />
+          <Property Name="qteStock" Type="int" Nullable="false" />
+          <Property Name="qteCommande" Type="int" Nullable="false" />
+          <Property Name="type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NomPromo" Type="varchar" MaxLength="50" />
+          <Property Name="idCommande" Type="int" />
+        </EntityType>
+        <EntityType Name="categorie">
+          <Key>
+            <PropertyRef Name="NOM" />
+          </Key>
+          <Property Name="NOM" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="e_mail" />
+          </Key>
+          <Property Name="e_mail" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="prenom" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="telephone" Type="int" />
+          <Property Name="mdp" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="IDAdresse" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="commande">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dateCommande" Type="datetime" Nullable="false" />
+          <Property Name="etat" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="datePanier" Type="datetime" Nullable="false" />
+          <Property Name="e_mail" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="genre">
+          <Key>
+            <PropertyRef Name="type" />
+          </Key>
+          <Property Name="type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nomCategorie" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ligne_de_commande">
+          <Key>
+            <PropertyRef Name="idCommande" />
+            <PropertyRef Name="reference" />
+          </Key>
+          <Property Name="idCommande" Type="int" Nullable="false" />
+          <Property Name="reference" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="qte" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="livraison">
+          <Key>
+            <PropertyRef Name="idLivraison" />
+          </Key>
+          <Property Name="idLivraison" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dateLivraison" Type="datetime" />
+          <Property Name="numeroAR" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idCommande" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="promo">
+          <Key>
+            <PropertyRef Name="nom" />
+          </Key>
+          <Property Name="nom" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="2000" />
+          <Property Name="dateDeb" Type="datetime" Nullable="false" />
+          <Property Name="dateFin" Type="datetime" Nullable="false" />
+          <Property Name="remise" Type="float" Nullable="false" />
+        </EntityType>
+        <Association Name="article_genre_FK">
+          <End Role="genre" Type="Self.genre" Multiplicity="1" />
+          <End Role="article" Type="Self.article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="genre">
+              <PropertyRef Name="type" />
+            </Principal>
+            <Dependent Role="article">
+              <PropertyRef Name="type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Erreurs détectées durant la génération :
+avertissement 6035: La relation 'article_livraison1_FK' a des colonnes qui ne font pas partie de la clé de la table du côté primaire de la relation. La relation a été exclue.
+        <Association Name="article_livraison1_FK" />-->
+        <Association Name="article_promo0_FK">
+          <End Role="promo" Type="Self.promo" Multiplicity="0..1" />
+          <End Role="article" Type="Self.article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="promo">
+              <PropertyRef Name="nom" />
+            </Principal>
+            <Dependent Role="article">
+              <PropertyRef Name="NomPromo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="client_adresse_FK">
+          <End Role="adresse" Type="Self.adresse" Multiplicity="1" />
+          <End Role="client" Type="Self.client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="adresse">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="client">
+              <PropertyRef Name="IDAdresse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="commande_client_FK">
+          <End Role="client" Type="Self.client" Multiplicity="1" />
+          <End Role="commande" Type="Self.commande" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="e_mail" />
+            </Principal>
+            <Dependent Role="commande">
+              <PropertyRef Name="e_mail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="genre_categorie_FK">
+          <End Role="categorie" Type="Self.categorie" Multiplicity="1" />
+          <End Role="genre" Type="Self.genre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categorie">
+              <PropertyRef Name="NOM" />
+            </Principal>
+            <Dependent Role="genre">
+              <PropertyRef Name="nomCategorie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ligne_de_commande_article0_FK">
+          <End Role="article" Type="Self.article" Multiplicity="1" />
+          <End Role="ligne_de_commande" Type="Self.ligne_de_commande" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="article">
+              <PropertyRef Name="reference" />
+            </Principal>
+            <Dependent Role="ligne_de_commande">
+              <PropertyRef Name="reference" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ligne_de_commande_commande_FK">
+          <End Role="commande" Type="Self.commande" Multiplicity="1" />
+          <End Role="ligne_de_commande" Type="Self.ligne_de_commande" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="commande">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ligne_de_commande">
+              <PropertyRef Name="idCommande" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="livraison_commande_FK">
+          <End Role="commande" Type="Self.commande" Multiplicity="1" />
+          <End Role="livraison" Type="Self.livraison" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="commande">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="livraison">
+              <PropertyRef Name="idCommande" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="sebocestpasbeauModelStoreContainer">
+          <EntitySet Name="adresse" EntityType="Self.adresse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="article" EntityType="Self.article" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="categorie" EntityType="Self.categorie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="client" EntityType="Self.client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="commande" EntityType="Self.commande" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="genre" EntityType="Self.genre" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ligne_de_commande" EntityType="Self.ligne_de_commande" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="livraison" EntityType="Self.livraison" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="promo" EntityType="Self.promo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="article_genre_FK" Association="Self.article_genre_FK">
+            <End Role="genre" EntitySet="genre" />
+            <End Role="article" EntitySet="article" />
+          </AssociationSet>
+          <AssociationSet Name="article_promo0_FK" Association="Self.article_promo0_FK">
+            <End Role="promo" EntitySet="promo" />
+            <End Role="article" EntitySet="article" />
+          </AssociationSet>
+          <AssociationSet Name="client_adresse_FK" Association="Self.client_adresse_FK">
+            <End Role="adresse" EntitySet="adresse" />
+            <End Role="client" EntitySet="client" />
+          </AssociationSet>
+          <AssociationSet Name="commande_client_FK" Association="Self.commande_client_FK">
+            <End Role="client" EntitySet="client" />
+            <End Role="commande" EntitySet="commande" />
+          </AssociationSet>
+          <AssociationSet Name="genre_categorie_FK" Association="Self.genre_categorie_FK">
+            <End Role="categorie" EntitySet="categorie" />
+            <End Role="genre" EntitySet="genre" />
+          </AssociationSet>
+          <AssociationSet Name="ligne_de_commande_article0_FK" Association="Self.ligne_de_commande_article0_FK">
+            <End Role="article" EntitySet="article" />
+            <End Role="ligne_de_commande" EntitySet="ligne_de_commande" />
+          </AssociationSet>
+          <AssociationSet Name="ligne_de_commande_commande_FK" Association="Self.ligne_de_commande_commande_FK">
+            <End Role="commande" EntitySet="commande" />
+            <End Role="ligne_de_commande" EntitySet="ligne_de_commande" />
+          </AssociationSet>
+          <AssociationSet Name="livraison_commande_FK" Association="Self.livraison_commande_FK">
+            <End Role="commande" EntitySet="commande" />
+            <End Role="livraison" EntitySet="livraison" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="sebocestpasbeauModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="adresse">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="numero" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="rue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ville" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="codepostale" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="client" Relationship="Self.client_adresse_FK" FromRole="adresse" ToRole="client" />
+        </EntityType>
+        <EntityType Name="article">
+          <Key>
+            <PropertyRef Name="reference" />
+          </Key>
+          <Property Name="reference" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="titre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="editeur" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="auteur" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="prix" Type="Double" Nullable="false" />
+          <Property Name="image" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="reassort" Type="Boolean" Nullable="false" />
+          <Property Name="qteStock" Type="Int32" Nullable="false" />
+          <Property Name="qteCommande" Type="Int32" Nullable="false" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NomPromo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idCommande" Type="Int32" />
+          <NavigationProperty Name="genre" Relationship="Self.article_genre_FK" FromRole="article" ToRole="genre" />
+          <NavigationProperty Name="promo" Relationship="Self.article_promo0_FK" FromRole="article" ToRole="promo" />
+          <NavigationProperty Name="ligne_de_commande" Relationship="Self.ligne_de_commande_article0_FK" FromRole="article" ToRole="ligne_de_commande" />
+        </EntityType>
+        <EntityType Name="categorie">
+          <Key>
+            <PropertyRef Name="NOM" />
+          </Key>
+          <Property Name="NOM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="genre" Relationship="Self.genre_categorie_FK" FromRole="categorie" ToRole="genre" />
+        </EntityType>
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="e_mail" />
+          </Key>
+          <Property Name="e_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prenom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telephone" Type="Int32" />
+          <Property Name="mdp" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IDAdresse" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="adresse" Relationship="Self.client_adresse_FK" FromRole="client" ToRole="adresse" />
+          <NavigationProperty Name="commande" Relationship="Self.commande_client_FK" FromRole="client" ToRole="commande" />
+        </EntityType>
+        <EntityType Name="commande">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dateCommande" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="etat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="datePanier" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="e_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="client" Relationship="Self.commande_client_FK" FromRole="commande" ToRole="client" />
+          <NavigationProperty Name="ligne_de_commande" Relationship="Self.ligne_de_commande_commande_FK" FromRole="commande" ToRole="ligne_de_commande" />
+          <NavigationProperty Name="livraison" Relationship="Self.livraison_commande_FK" FromRole="commande" ToRole="livraison" />
+        </EntityType>
+        <EntityType Name="genre">
+          <Key>
+            <PropertyRef Name="type" />
+          </Key>
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nomCategorie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="article" Relationship="Self.article_genre_FK" FromRole="genre" ToRole="article" />
+          <NavigationProperty Name="categorie" Relationship="Self.genre_categorie_FK" FromRole="genre" ToRole="categorie" />
+        </EntityType>
+        <EntityType Name="ligne_de_commande">
+          <Key>
+            <PropertyRef Name="idCommande" />
+            <PropertyRef Name="reference" />
+          </Key>
+          <Property Name="idCommande" Type="Int32" Nullable="false" />
+          <Property Name="reference" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="qte" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="article" Relationship="Self.ligne_de_commande_article0_FK" FromRole="ligne_de_commande" ToRole="article" />
+          <NavigationProperty Name="commande" Relationship="Self.ligne_de_commande_commande_FK" FromRole="ligne_de_commande" ToRole="commande" />
+        </EntityType>
+        <EntityType Name="livraison">
+          <Key>
+            <PropertyRef Name="idLivraison" />
+          </Key>
+          <Property Name="idLivraison" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dateLivraison" Type="DateTime" Precision="3" />
+          <Property Name="numeroAR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idCommande" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="commande" Relationship="Self.livraison_commande_FK" FromRole="livraison" ToRole="commande" />
+        </EntityType>
+        <EntityType Name="promo">
+          <Key>
+            <PropertyRef Name="nom" />
+          </Key>
+          <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="dateDeb" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dateFin" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="remise" Type="Double" Nullable="false" />
+          <NavigationProperty Name="article" Relationship="Self.article_promo0_FK" FromRole="promo" ToRole="article" />
+        </EntityType>
+        <Association Name="client_adresse_FK">
+          <End Role="adresse" Type="Self.adresse" Multiplicity="1" />
+          <End Role="client" Type="Self.client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="adresse">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="client">
+              <PropertyRef Name="IDAdresse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="article_genre_FK">
+          <End Role="genre" Type="Self.genre" Multiplicity="1" />
+          <End Role="article" Type="Self.article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="genre">
+              <PropertyRef Name="type" />
+            </Principal>
+            <Dependent Role="article">
+              <PropertyRef Name="type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="article_promo0_FK">
+          <End Role="promo" Type="Self.promo" Multiplicity="0..1" />
+          <End Role="article" Type="Self.article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="promo">
+              <PropertyRef Name="nom" />
+            </Principal>
+            <Dependent Role="article">
+              <PropertyRef Name="NomPromo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ligne_de_commande_article0_FK">
+          <End Role="article" Type="Self.article" Multiplicity="1" />
+          <End Role="ligne_de_commande" Type="Self.ligne_de_commande" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="article">
+              <PropertyRef Name="reference" />
+            </Principal>
+            <Dependent Role="ligne_de_commande">
+              <PropertyRef Name="reference" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="genre_categorie_FK">
+          <End Role="categorie" Type="Self.categorie" Multiplicity="1" />
+          <End Role="genre" Type="Self.genre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categorie">
+              <PropertyRef Name="NOM" />
+            </Principal>
+            <Dependent Role="genre">
+              <PropertyRef Name="nomCategorie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="commande_client_FK">
+          <End Role="client" Type="Self.client" Multiplicity="1" />
+          <End Role="commande" Type="Self.commande" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="e_mail" />
+            </Principal>
+            <Dependent Role="commande">
+              <PropertyRef Name="e_mail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ligne_de_commande_commande_FK">
+          <End Role="commande" Type="Self.commande" Multiplicity="1" />
+          <End Role="ligne_de_commande" Type="Self.ligne_de_commande" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="commande">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ligne_de_commande">
+              <PropertyRef Name="idCommande" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="livraison_commande_FK">
+          <End Role="commande" Type="Self.commande" Multiplicity="1" />
+          <End Role="livraison" Type="Self.livraison" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="commande">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="livraison">
+              <PropertyRef Name="idCommande" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="sebocestpasbeauEntities3" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="adresse" EntityType="Self.adresse" />
+          <EntitySet Name="article" EntityType="Self.article" />
+          <EntitySet Name="categorie" EntityType="Self.categorie" />
+          <EntitySet Name="client" EntityType="Self.client" />
+          <EntitySet Name="commande" EntityType="Self.commande" />
+          <EntitySet Name="genre" EntityType="Self.genre" />
+          <EntitySet Name="ligne_de_commande" EntityType="Self.ligne_de_commande" />
+          <EntitySet Name="livraison" EntityType="Self.livraison" />
+          <EntitySet Name="promo" EntityType="Self.promo" />
+          <AssociationSet Name="client_adresse_FK" Association="Self.client_adresse_FK">
+            <End Role="adresse" EntitySet="adresse" />
+            <End Role="client" EntitySet="client" />
+          </AssociationSet>
+          <AssociationSet Name="article_genre_FK" Association="Self.article_genre_FK">
+            <End Role="genre" EntitySet="genre" />
+            <End Role="article" EntitySet="article" />
+          </AssociationSet>
+          <AssociationSet Name="article_promo0_FK" Association="Self.article_promo0_FK">
+            <End Role="promo" EntitySet="promo" />
+            <End Role="article" EntitySet="article" />
+          </AssociationSet>
+          <AssociationSet Name="ligne_de_commande_article0_FK" Association="Self.ligne_de_commande_article0_FK">
+            <End Role="article" EntitySet="article" />
+            <End Role="ligne_de_commande" EntitySet="ligne_de_commande" />
+          </AssociationSet>
+          <AssociationSet Name="genre_categorie_FK" Association="Self.genre_categorie_FK">
+            <End Role="categorie" EntitySet="categorie" />
+            <End Role="genre" EntitySet="genre" />
+          </AssociationSet>
+          <AssociationSet Name="commande_client_FK" Association="Self.commande_client_FK">
+            <End Role="client" EntitySet="client" />
+            <End Role="commande" EntitySet="commande" />
+          </AssociationSet>
+          <AssociationSet Name="ligne_de_commande_commande_FK" Association="Self.ligne_de_commande_commande_FK">
+            <End Role="commande" EntitySet="commande" />
+            <End Role="ligne_de_commande" EntitySet="ligne_de_commande" />
+          </AssociationSet>
+          <AssociationSet Name="livraison_commande_FK" Association="Self.livraison_commande_FK">
+            <End Role="commande" EntitySet="commande" />
+            <End Role="livraison" EntitySet="livraison" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="sebocestpasbeauModelStoreContainer" CdmEntityContainer="sebocestpasbeauEntities3">
+          <EntitySetMapping Name="adresse">
+            <EntityTypeMapping TypeName="sebocestpasbeauModel.adresse">
+              <MappingFragment StoreEntitySet="adresse">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="rue" ColumnName="rue" />
+                <ScalarProperty Name="ville" ColumnName="ville" />
+                <ScalarProperty Name="codepostale" ColumnName="codepostale" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="article">
+            <EntityTypeMapping TypeName="sebocestpasbeauModel.article">
+              <MappingFragment StoreEntitySet="article">
+                <ScalarProperty Name="reference" ColumnName="reference" />
+                <ScalarProperty Name="titre" ColumnName="titre" />
+                <ScalarProperty Name="editeur" ColumnName="editeur" />
+                <ScalarProperty Name="auteur" ColumnName="auteur" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="prix" ColumnName="prix" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="reassort" ColumnName="reassort" />
+                <ScalarProperty Name="qteStock" ColumnName="qteStock" />
+                <ScalarProperty Name="qteCommande" ColumnName="qteCommande" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="NomPromo" ColumnName="NomPromo" />
+                <ScalarProperty Name="idCommande" ColumnName="idCommande" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="categorie">
+            <EntityTypeMapping TypeName="sebocestpasbeauModel.categorie">
+              <MappingFragment StoreEntitySet="categorie">
+                <ScalarProperty Name="NOM" ColumnName="NOM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="client">
+            <EntityTypeMapping TypeName="sebocestpasbeauModel.client">
+              <MappingFragment StoreEntitySet="client">
+                <ScalarProperty Name="e_mail" ColumnName="e_mail" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="prenom" ColumnName="prenom" />
+                <ScalarProperty Name="telephone" ColumnName="telephone" />
+                <ScalarProperty Name="mdp" ColumnName="mdp" />
+                <ScalarProperty Name="IDAdresse" ColumnName="IDAdresse" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="commande">
+            <EntityTypeMapping TypeName="sebocestpasbeauModel.commande">
+              <MappingFragment StoreEntitySet="commande">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="dateCommande" ColumnName="dateCommande" />
+                <ScalarProperty Name="etat" ColumnName="etat" />
+                <ScalarProperty Name="datePanier" ColumnName="datePanier" />
+                <ScalarProperty Name="e_mail" ColumnName="e_mail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="genre">
+            <EntityTypeMapping TypeName="sebocestpasbeauModel.genre">
+              <MappingFragment StoreEntitySet="genre">
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="nomCategorie" ColumnName="nomCategorie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ligne_de_commande">
+            <EntityTypeMapping TypeName="sebocestpasbeauModel.ligne_de_commande">
+              <MappingFragment StoreEntitySet="ligne_de_commande">
+                <ScalarProperty Name="idCommande" ColumnName="idCommande" />
+                <ScalarProperty Name="reference" ColumnName="reference" />
+                <ScalarProperty Name="qte" ColumnName="qte" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="livraison">
+            <EntityTypeMapping TypeName="sebocestpasbeauModel.livraison">
+              <MappingFragment StoreEntitySet="livraison">
+                <ScalarProperty Name="idLivraison" ColumnName="idLivraison" />
+                <ScalarProperty Name="dateLivraison" ColumnName="dateLivraison" />
+                <ScalarProperty Name="numeroAR" ColumnName="numeroAR" />
+                <ScalarProperty Name="idCommande" ColumnName="idCommande" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="promo">
+            <EntityTypeMapping TypeName="sebocestpasbeauModel.promo">
+              <MappingFragment StoreEntitySet="promo">
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="dateDeb" ColumnName="dateDeb" />
+                <ScalarProperty Name="dateFin" ColumnName="dateFin" />
+                <ScalarProperty Name="remise" ColumnName="remise" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

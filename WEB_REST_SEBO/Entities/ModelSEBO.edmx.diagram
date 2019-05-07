@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="128fa60397d7484fad05af6b6e4f06a1" Name="Diagram1">
+        <EntityTypeShape EntityType="sebocestpasbeauModel.adresse" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="sebocestpasbeauModel.article" Width="1.5" PointX="5.25" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="sebocestpasbeauModel.categorie" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="sebocestpasbeauModel.client" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="sebocestpasbeauModel.commande" Width="1.5" PointX="5.25" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="sebocestpasbeauModel.genre" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="sebocestpasbeauModel.ligne_de_commande" Width="1.5" PointX="7.5" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="sebocestpasbeauModel.livraison" Width="1.5" PointX="7.5" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="sebocestpasbeauModel.promo" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
+        <AssociationConnector Association="sebocestpasbeauModel.client_adresse_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="sebocestpasbeauModel.article_genre_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="sebocestpasbeauModel.article_promo0_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="sebocestpasbeauModel.ligne_de_commande_article0_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="sebocestpasbeauModel.genre_categorie_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="sebocestpasbeauModel.commande_client_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="sebocestpasbeauModel.ligne_de_commande_commande_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="sebocestpasbeauModel.livraison_commande_FK" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
