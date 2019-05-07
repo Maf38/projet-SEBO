@@ -26,5 +26,12 @@ namespace Client_WEB_SEBO.Controllers
 
             return View();
         }
+
+        public ActionResult Accueil()
+        {
+            ViewBag.Message = "La page d'acceuil.";
+
+            return View();
+        }
     }
 }

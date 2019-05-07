@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/layoutSeboStyle.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+</head>
+<body>
+    <div id=accueuil>
+
+        
+
+        <div class="topnav">
+            <a href="/Accueil/index">
+                <img src="../../Images/icones/SeboIcon.png" />
+            </a>
+            
+            <input type="text" placeholder="Search.." />
+            <a href="/Accueil/profil">
+                <i class="fas fa-user"></i>
+            </a>
+            <a href="/Accueil/panier">
+                <i class="fas fa-shopping-cart"></i>
+            </a>
+        </div>
+
+       @*
+        @Html.ActionLink("Client WEB SEBO", "Index", "Home", new { @style = "background-image:url('~/Images/Sebo.png')" }, null)
+        @Html.ActionLink("Accueil", "Index", "Home")
+        @Html.ActionLink("À propos de", "About", "Home")
+        @Html.ActionLink("Contact", "Contact", "Home")*@
+    </div>
+    <div>
+
+        @RenderBody()
+    </div>
+  
+        <footer>
+            <p>&copy; @DateTime.Now.Year - SEBO Corporation</p>
+    
+         </footer>
+</body>
+</html>

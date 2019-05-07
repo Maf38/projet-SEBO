@@ -19,8 +19,7 @@ namespace WEB_REST_SEBO.Controllers
         public ArticlesController()
         {
             db.Configuration.ProxyCreationEnabled=false;
-
-
+            
         }
 
         // GET: api/Articles
