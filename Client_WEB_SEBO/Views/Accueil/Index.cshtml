@@ -5,96 +5,46 @@
 }
 
 
-@model IEnumerable<Client_WEB_SEBO.Models.Article>
+@model Client_WEB_SEBO.Models.ViewModel.ViewArticleModel
 
 @{
     ViewBag.Title = "GetArticles";
 }
+    <table>
+
+        <td align="left">
+        <ul id="navigation">
+            <li><a href="#" title="aller à la section 1">item1</a></li>
+            <li><a href="#" title="aller à la section 2">item2</a></li>
+            <li><a href="#" title="aller à la section 3">item3</a></li>
+            <li><a href="#" title="aller à la section 4">item4</a></li>
+            <li><a href="#" title="aller à la section 5">item5</a></li>
+        </ul>
+
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Menu déroulant
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="#" title="Lien 1">Lien 1</a></li>
+                <li><a href="#" title="Lien 2">Lien 2</a></li>
+                <li><a href="#" title="Lien 3">Lien 3</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#" title="Lien 4">Lien 4</a></li>
+            </ul>
+        </div>
+
+        </td>
+
+        <td>
+            @Html.Partial("~/Views/Shared/ViewAllArticles.cshtml")
+        </td>
+
+    </table>
 
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.reference)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.titre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.editeur)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.auteur)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.prix)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.image)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.reassort)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.qteStock)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.qteCommande)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.type)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.reference)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.titre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.editeur)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.auteur)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.prix)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.image)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.reassort)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.qteStock)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.qteCommande)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.type)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-    }
-
-</table>
 
 
+   
 

@@ -8,7 +8,7 @@ namespace Client_WEB_SEBO.Models.ViewModel
 {
     public class ViewArticleModel
     {
-        Article article { get; set; }
-        Genre genre { get; set; }
+        public IEnumerable <Article> articles { get; set; }
+        public IEnumerable <Genre> genres { get; set; }
     }
 }

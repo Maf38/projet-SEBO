@@ -13,7 +13,7 @@ namespace Client_WEB_SEBO.Models
         public string auteur { get; set; }
         public string description { get; set; }
         public double prix { get; set; }
-        public string image { get; set; }
+        public string image { get; set; }        
         public bool reassort { get; set; }
         public int qteStock { get; set; }
         public int qteCommande { get; set; }

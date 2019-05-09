@@ -1,0 +1,98 @@
+﻿@model Client_WEB_SEBO.Models.ViewModel.ViewArticleModel
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Photo")
+        </th>
+        <th>
+            @Html.DisplayName("Titre")
+        </th>
+        <th>
+            @Html.DisplayName("Auteur")
+        </th>
+        <th>
+            @Html.DisplayName("Editeur")
+        </th>
+        <th>
+            @Html.DisplayName("Description")
+        </th>
+        <th>
+            @Html.DisplayName("Prix")
+        </th>
+        <th>
+            @Html.DisplayName("Genre")
+        </th>
+        <th>
+            @Html.DisplayName("Style")
+        </th>
+
+    </tr>
+
+    @{int nbArticles = Model.articles.Count();
+
+    }
+
+
+
+    @foreach (Client_WEB_SEBO.Models.Article article in Model.articles)
+    {
+        <tr>
+            <td>
+                @{ if (!article.image.IsEmpty())
+                    {
+                        string urlImage = article.image;
+                        <img class="topnav" src=@urlImage />
+
+                    }
+                    else
+                    {
+
+                        string urlImage = article.image;
+                        <img  class="catalogue" src="~/Images/icones/false.png" />
+                    }
+                }
+
+            </td>
+            <td>
+
+                @Html.DisplayName(article.titre)
+            </td>
+            <td>
+                @Html.DisplayName(article.auteur)
+            </td>
+            <td>
+                @Html.DisplayName(article.editeur)
+            </td>
+            <td>
+
+                @{ if (!article.description.IsEmpty())
+                    {
+                        @Html.DisplayName(article.description)
+                    }
+                    else
+                    {
+                        @Html.DisplayName("sans description")
+                    }
+                }
+
+            </td>
+            <td>
+                @Html.Display(article.prix.ToString())
+            </td>
+            <td>
+                @Html.DisplayName(article.type)
+            </td>
+            <td>
+                @{
+                    var genre = Model.genres.Where(item => item.type == article.type).First();
+                    @Html.DisplayName(genre.nomCategorie)
+                }
+
+            </td>
+
+
+        </tr>
+    }
+
+</table>  

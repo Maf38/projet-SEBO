@@ -7,7 +7,7 @@ using System.Net.Http;
 
 namespace Client_WEB_SEBO.DAL
 {
-    public class DAL
+    public class ArticlesDAL
     {
 
         private const string BASE_ADRESS = "http://localhost:53196/api/";
