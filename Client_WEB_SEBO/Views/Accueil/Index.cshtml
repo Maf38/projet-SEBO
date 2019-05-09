@@ -5,14 +5,96 @@
 }
 
 
-    <div>
+@model IEnumerable<Client_WEB_SEBO.Models.Article>
+
+@{
+    ViewBag.Title = "GetArticles";
+}
 
 
-    </div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.reference)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.titre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.editeur)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.auteur)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.prix)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.image)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.reassort)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.qteStock)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.qteCommande)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.type)
+        </th>
+        <th></th>
+    </tr>
 
-    <div class="col-md-4">
-        <p>This is body.</p>
-        <img src="http://www.stickpng.com/fr/img/films/dessins-animes/ouioui/ouioui-doigt-leve" />
-    </div>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.reference)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.titre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.editeur)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.auteur)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.prix)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.image)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.reassort)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.qteStock)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.qteCommande)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.type)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+
+</table>
+
 
 

@@ -9,26 +9,26 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Web_API_SEBO.Entities;
+using WEB_REST_SEBO.Entities;
 
-namespace Web_API_SEBO.Controllers
+namespace WEB_REST_SEBO.Controllers
 {
-    public class GenresController : ApiController
+    public class genresController : ApiController
     {
-        private sebocestpasbeauEntities1 db = new sebocestpasbeauEntities1();
+        private sebocestpasbeauEntities db = new sebocestpasbeauEntities();
 
-        public GenresController()
+        public genresController()
         {
             db.Configuration.ProxyCreationEnabled = false;
         }
 
-        // GET: api/Genres
+        // GET: api/genres
         public IQueryable<genre> Getgenre()
         {
             return db.genre;
         }
 
-        // GET: api/Genres/5
+        // GET: api/genres/5
         [ResponseType(typeof(genre))]
         public async Task<IHttpActionResult> Getgenre(string id)
         {
@@ -41,7 +41,7 @@ namespace Web_API_SEBO.Controllers
             return Ok(genre);
         }
 
-        // PUT: api/Genres/5
+        // PUT: api/genres/5
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> Putgenre(string id, genre genre)
         {
@@ -76,7 +76,7 @@ namespace Web_API_SEBO.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Genres
+        // POST: api/genres
         [ResponseType(typeof(genre))]
         public async Task<IHttpActionResult> Postgenre(genre genre)
         {
@@ -106,7 +106,7 @@ namespace Web_API_SEBO.Controllers
             return CreatedAtRoute("DefaultApi", new { id = genre.type }, genre);
         }
 
-        // DELETE: api/Genres/5
+        // DELETE: api/genres/5
         [ResponseType(typeof(genre))]
         public async Task<IHttpActionResult> Deletegenre(string id)
         {

@@ -11,16 +11,21 @@ namespace WEB_REST_SEBO.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Runtime.Serialization;
+
+    [DataContract]
     public partial class genre
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        
         public genre()
         {
             this.article = new HashSet<article>();
         }
-    
+        
+        [DataMember]
         public string type { get; set; }
+        [DataMember]
         public string nomCategorie { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
