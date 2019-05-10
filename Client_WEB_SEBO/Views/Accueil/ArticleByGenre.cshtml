@@ -1,0 +1,51 @@
+﻿
+
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_myLayoutSEBOPage.cshtml";
+}
+
+
+@model Client_WEB_SEBO.Models.ViewModel.ViewArticleModel
+
+@{
+    ViewBag.Title = "GetArticles";
+}
+<table>
+
+    <td align="left">
+        <ul id="navigation">
+            <li><a href="#" title="aller à la section 1">item1</a></li>
+            <li><a href="#" title="aller à la section 2">item2</a></li>
+            <li><a href="#" title="aller à la section 3">item3</a></li>
+            <li><a href="#" title="aller à la section 4">item4</a></li>
+            <li><a href="#" title="aller à la section 5">item5</a></li>
+        </ul>
+
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Menu déroulant
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="#" title="Lien 1">Lien 1</a></li>
+                <li><a href="#" title="Lien 2">Lien 2</a></li>
+                <li><a href="#" title="Lien 3">Lien 3</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#" title="Lien 4">Lien 4</a></li>
+            </ul>
+        </div>
+
+    </td>
+
+    <td>
+        @Html.Partial("~/Views/Shared/ViewAllArticles.cshtml")
+    </td>
+
+</table>
+
+
+
+
+
+

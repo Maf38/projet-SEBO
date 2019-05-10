@@ -13,7 +13,7 @@ namespace Client_WEB_SEBO.DAL
         private const string BASE_ADRESS = "http://localhost:53196/api/";
 
 
-        public static IEnumerable<Article> GetArticles()
+        public static IEnumerable<Article> GetArticles(string genre)
         {
             IEnumerable<Article> articles = null;
 
@@ -23,8 +23,20 @@ namespace Client_WEB_SEBO.DAL
 
                 // Called article default GET All records
                 //GetAsync to send a GET request   
-                // PutAsync to send a PUT request  
-                var responseTask = client.GetAsync("articles");
+                // PutAsync to send a PUT request
+
+                string uriREST;
+
+                if (genre == "NA"){//si le genre est spécifié à NA on appelle le WEB service qui charge tous les articles
+
+                    uriREST = "articles";
+                }
+                else//sinon on charge les articles par genre
+                {
+
+                    uriREST = "articlesByGenre/" + genre;
+                }
+                var responseTask = client.GetAsync(uriREST);
                 responseTask.Wait();
 
                 //To store result of web api response.   
@@ -50,7 +62,14 @@ namespace Client_WEB_SEBO.DAL
             return articles;
         }
 
-        public static IEnumerable<Genre> GetGenres()
+        public static IEnumerable<Article> GetArticles()
+        {
+            IEnumerable<Article> articles = GetArticles("NA");
+
+            return articles;
+        }
+
+            public static IEnumerable<Genre> GetGenres()
         {
             IEnumerable<Genre> genres = null;
 

@@ -23,5 +23,16 @@ namespace Client_WEB_SEBO.Controllers
 
         return View(viewArticles);
         }
+
+        public ActionResult ArticleByGenre(string id)
+        {
+
+            ViewArticleModel viewArticles = new ViewArticleModel();
+            viewArticles.articles = DAL.ArticlesDAL.GetArticles(id);
+            viewArticles.genres = DAL.ArticlesDAL.GetGenres();
+
+
+            return View(viewArticles);
+        }
     }
 }

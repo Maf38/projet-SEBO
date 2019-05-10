@@ -42,7 +42,7 @@ namespace WEB_REST_SEBO.Entities
         public string type { get; set; }
         public string NomPromo { get; set; }
         public Nullable<int> idCommande { get; set; }
-      
+        [DataMember]
         public virtual genre genre { get; set; }
         public virtual promo promo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

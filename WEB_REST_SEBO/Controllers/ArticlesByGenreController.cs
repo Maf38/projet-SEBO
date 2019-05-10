@@ -6,45 +6,42 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using WEB_REST_SEBO.Entities;
 
 namespace WEB_REST_SEBO.Controllers
 {
-    public class ArticlesController : ApiController
+    public class ArticlesByGenreController : ApiController
     {
         private sebocestpasbeauEntities db = new sebocestpasbeauEntities();
 
-        public ArticlesController()
+        public ArticlesByGenreController()
         {
             // db.Configuration.ProxyCreationEnabled=false;
             db.Configuration.ProxyCreationEnabled = true;
-           db.Configuration.LazyLoadingEnabled =true;
+            db.Configuration.LazyLoadingEnabled = true;
         }
 
-        // GET: api/Articles
+        // GET: api/ArticlesByGenre
         public IQueryable<article> Getarticle()
         {
             return db.article;
         }
 
-        // GET: api/Articles/5
-        [ResponseType(typeof(article))]
-        public IHttpActionResult Getarticle(string id)
+        // GET: api/ArticlesByGenre/CD      
+        public IQueryable<article> Getgenre(string id)
         {
-            article article = db.article.Find(id);
-            if (article == null)
-            {
-                return NotFound();
-            }
+           IQueryable  <article> listeArticle =  db.article.Where(art=>art.genre.nomCategorie==id);
+           
 
-            return Ok(article);
+            return listeArticle;
         }
 
-        // PUT: api/Articles/5
+        // PUT: api/ArticlesByGenre/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult Putarticle(string id, article article)
+        public async Task<IHttpActionResult> Putarticle(string id, article article)
         {
             if (!ModelState.IsValid)
             {
@@ -60,11 +57,11 @@ namespace WEB_REST_SEBO.Controllers
 
             try
             {
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ArticleExists(id))
+                if (!articleExists(id))
                 {
                     return NotFound();
                 }
@@ -77,9 +74,9 @@ namespace WEB_REST_SEBO.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Articles
+        // POST: api/ArticlesByGenre
         [ResponseType(typeof(article))]
-        public IHttpActionResult Postarticle(article article)
+        public async Task<IHttpActionResult> Postarticle(article article)
         {
             if (!ModelState.IsValid)
             {
@@ -90,11 +87,11 @@ namespace WEB_REST_SEBO.Controllers
 
             try
             {
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (ArticleExists(article.reference))
+                if (articleExists(article.reference))
                 {
                     return Conflict();
                 }
@@ -107,18 +104,18 @@ namespace WEB_REST_SEBO.Controllers
             return CreatedAtRoute("DefaultApi", new { id = article.reference }, article);
         }
 
-        // DELETE: api/Articles/5
+        // DELETE: api/ArticlesByGenre/5
         [ResponseType(typeof(article))]
-        public IHttpActionResult Deletearticle(string id)
+        public async Task<IHttpActionResult> Deletearticle(string id)
         {
-            article article = db.article.Find(id);
+            article article = await db.article.FindAsync(id);
             if (article == null)
             {
                 return NotFound();
             }
 
             db.article.Remove(article);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
 
             return Ok(article);
         }
@@ -132,7 +129,7 @@ namespace WEB_REST_SEBO.Controllers
             base.Dispose(disposing);
         }
 
-        private bool ArticleExists(string id)
+        private bool articleExists(string id)
         {
             return db.article.Count(e => e.reference == id) > 0;
         }
