@@ -141,7 +141,14 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\cssFilterableMenu\component.css" />
+    <Content Include="Content\cssFilterableMenu\demo.css" />
+    <Content Include="Content\cssFilterableMenu\flickity.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontsFilterableProductGrid\bpicons\bpicons.svg" />
+    <Content Include="fonts\fontsFilterableProductGrid\bpicons\license.txt" />
+    <Content Include="fonts\fontsFilterableProductGrid\pixelfabric-clothes\fonts\pixelfabric-clothes.svg" />
+    <Content Include="fonts\fontsFilterableProductGrid\pixelfabric-clothes\style.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -157,9 +164,24 @@
     <Content Include="Images\ImagesApple\music-sm.png" />
     <Content Include="Images\ImagesApple\rss-sm.png" />
     <Content Include="Images\ImagesApple\video-sm.png" />
+    <Content Include="Images\imgFilterableProductGrid\dress.png" />
+    <Content Include="Images\imgFilterableProductGrid\grid.svg" />
+    <Content Include="Images\imgFilterableProductGrid\jacket.png" />
+    <Content Include="Images\imgFilterableProductGrid\shirt.png" />
+    <Content Include="Images\imgFilterableProductGrid\shoe.png" />
+    <Content Include="Images\imgFilterableProductGrid\trousers.png" />
     <Content Include="Images\Sebo.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Images\imgFilterableProductGrid\.DS_Store" />
+    <Content Include="fonts\fontsFilterableProductGrid\.DS_Store" />
+    <Content Include="fonts\fontsFilterableProductGrid\bpicons\bpicons.eot" />
+    <Content Include="fonts\fontsFilterableProductGrid\bpicons\bpicons.ttf" />
+    <Content Include="fonts\fontsFilterableProductGrid\bpicons\bpicons.woff" />
+    <Content Include="fonts\fontsFilterableProductGrid\pixelfabric-clothes\.DS_Store" />
+    <Content Include="fonts\fontsFilterableProductGrid\pixelfabric-clothes\fonts\pixelfabric-clothes.eot" />
+    <Content Include="fonts\fontsFilterableProductGrid\pixelfabric-clothes\fonts\pixelfabric-clothes.ttf" />
+    <Content Include="fonts\fontsFilterableProductGrid\pixelfabric-clothes\fonts\pixelfabric-clothes.woff" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -170,6 +192,10 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jsFilterableProductGrid\flickity.pkgd.min.js" />
+    <Content Include="Scripts\jsFilterableProductGrid\isotope.pkgd.min.js" />
+    <Content Include="Scripts\jsFilterableProductGrid\main.js" />
+    <Content Include="Scripts\jsFilterableProductGrid\modernizr.custom.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Content\layoutSeboStyle.css" />
     <Content Include="Web.config" />
@@ -193,11 +219,12 @@
     <Content Include="Views\Shared\_myLayoutSEBOPage.cshtml" />
     <Content Include="Views\Shared\ViewAllArticles.cshtml" />
     <Content Include="Views\Accueil\ArticleByGenre.cshtml" />
+    <Content Include="Views\Shared\_FilterableProductGrid.cshtml" />
+    <Content Include="Views\Shared\ViewAllArticlesGrid.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Images\Thumbs\" />
-    <Folder Include="Views\Shared\NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -32,6 +32,7 @@ namespace WEB_REST_SEBO.Entities
         public virtual DbSet<commande> commande { get; set; }
         public virtual DbSet<genre> genre { get; set; }
         public virtual DbSet<ligne_de_commande> ligne_de_commande { get; set; }
+        public virtual DbSet<ligne_de_livraison> ligne_de_livraison { get; set; }
         public virtual DbSet<livraison> livraison { get; set; }
         public virtual DbSet<promo> promo { get; set; }
     }

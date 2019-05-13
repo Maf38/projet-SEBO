@@ -14,11 +14,19 @@ namespace WEB_REST_SEBO.Entities
     
     public partial class livraison
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public livraison()
+        {
+            this.ligne_de_livraison = new HashSet<ligne_de_livraison>();
+        }
+    
         public int idLivraison { get; set; }
         public Nullable<System.DateTime> dateLivraison { get; set; }
         public string numeroAR { get; set; }
         public int idCommande { get; set; }
     
         public virtual commande commande { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ligne_de_livraison> ligne_de_livraison { get; set; }
     }
 }

@@ -188,6 +188,9 @@
     <Compile Include="Entities\ligne_de_commande.cs">
       <DependentUpon>ModelSEBO.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\ligne_de_livraison.cs">
+      <DependentUpon>ModelSEBO.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\livraison.cs">
       <DependentUpon>ModelSEBO.tt</DependentUpon>
     </Compile>

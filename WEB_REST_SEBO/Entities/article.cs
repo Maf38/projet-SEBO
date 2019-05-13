@@ -20,8 +20,9 @@ namespace WEB_REST_SEBO.Entities
         public article()
         {
             this.ligne_de_commande = new HashSet<ligne_de_commande>();
+            this.ligne_de_livraison = new HashSet<ligne_de_livraison>();
         }
-        [DataMember]     
+        [DataMember]
         public string reference { get; set; }
         [DataMember]
         public string titre { get; set; }
@@ -35,17 +36,22 @@ namespace WEB_REST_SEBO.Entities
         public double prix { get; set; }
         [DataMember]
         public string image { get; set; }
+        [DataMember]
         public bool reassort { get; set; }
+        [DataMember]
         public int qteStock { get; set; }
         public int qteCommande { get; set; }
+        public int seuil { get; set; }
         [DataMember]
         public string type { get; set; }
-        public string NomPromo { get; set; }
-        public Nullable<int> idCommande { get; set; }
         [DataMember]
+        public string NomPromo { get; set; }
+    
         public virtual genre genre { get; set; }
         public virtual promo promo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ligne_de_commande> ligne_de_commande { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ligne_de_livraison> ligne_de_livraison { get; set; }
     }
 }

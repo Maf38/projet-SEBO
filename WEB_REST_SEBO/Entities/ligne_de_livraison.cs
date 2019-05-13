@@ -12,19 +12,13 @@ namespace WEB_REST_SEBO.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class genre
+    public partial class ligne_de_livraison
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public genre()
-        {
-            this.article = new HashSet<article>();
-        }
+        public string reference { get; set; }
+        public int idLivraison { get; set; }
+        public int qte { get; set; }
     
-        public string type { get; set; }
-        public string nomCategorie { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<article> article { get; set; }
-        public virtual categorie categorie { get; set; }
+        public virtual article article { get; set; }
+        public virtual livraison livraison { get; set; }
     }
 }

@@ -29,9 +29,9 @@
           <Property Name="reassort" Type="bit" Nullable="false" />
           <Property Name="qteStock" Type="int" Nullable="false" />
           <Property Name="qteCommande" Type="int" Nullable="false" />
+          <Property Name="seuil" Type="int" Nullable="false" />
           <Property Name="type" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="NomPromo" Type="varchar" MaxLength="50" />
-          <Property Name="idCommande" Type="int" />
         </EntityType>
         <EntityType Name="categorie">
           <Key>
@@ -76,6 +76,15 @@
           <Property Name="reference" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="qte" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="ligne_de_livraison">
+          <Key>
+            <PropertyRef Name="reference" />
+            <PropertyRef Name="idLivraison" />
+          </Key>
+          <Property Name="reference" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idLivraison" Type="int" Nullable="false" />
+          <Property Name="qte" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="livraison">
           <Key>
             <PropertyRef Name="idLivraison" />
@@ -107,9 +116,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <!--Erreurs détectées durant la génération :
-avertissement 6035: La relation 'article_livraison1_FK' a des colonnes qui ne font pas partie de la clé de la table du côté primaire de la relation. La relation a été exclue.
-        <Association Name="article_livraison1_FK" />-->
         <Association Name="article_promo0_FK">
           <End Role="promo" Type="Self.promo" Multiplicity="0..1" />
           <End Role="article" Type="Self.article" Multiplicity="*" />
@@ -182,6 +188,30 @@ avertissement 6035: La relation 'article_livraison1_FK' a des colonnes qui ne fo
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="ligne_de_livraison_article0_FK">
+          <End Role="article" Type="Self.article" Multiplicity="1" />
+          <End Role="ligne_de_livraison" Type="Self.ligne_de_livraison" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="article">
+              <PropertyRef Name="reference" />
+            </Principal>
+            <Dependent Role="ligne_de_livraison">
+              <PropertyRef Name="reference" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ligne_de_livraison_commande_FK">
+          <End Role="livraison" Type="Self.livraison" Multiplicity="1" />
+          <End Role="ligne_de_livraison" Type="Self.ligne_de_livraison" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="livraison">
+              <PropertyRef Name="idLivraison" />
+            </Principal>
+            <Dependent Role="ligne_de_livraison">
+              <PropertyRef Name="idLivraison" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="livraison_commande_FK">
           <End Role="commande" Type="Self.commande" Multiplicity="1" />
           <End Role="livraison" Type="Self.livraison" Multiplicity="*" />
@@ -202,6 +232,7 @@ avertissement 6035: La relation 'article_livraison1_FK' a des colonnes qui ne fo
           <EntitySet Name="commande" EntityType="Self.commande" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="genre" EntityType="Self.genre" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ligne_de_commande" EntityType="Self.ligne_de_commande" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ligne_de_livraison" EntityType="Self.ligne_de_livraison" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="livraison" EntityType="Self.livraison" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="promo" EntityType="Self.promo" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="article_genre_FK" Association="Self.article_genre_FK">
@@ -231,6 +262,14 @@ avertissement 6035: La relation 'article_livraison1_FK' a des colonnes qui ne fo
           <AssociationSet Name="ligne_de_commande_commande_FK" Association="Self.ligne_de_commande_commande_FK">
             <End Role="commande" EntitySet="commande" />
             <End Role="ligne_de_commande" EntitySet="ligne_de_commande" />
+          </AssociationSet>
+          <AssociationSet Name="ligne_de_livraison_article0_FK" Association="Self.ligne_de_livraison_article0_FK">
+            <End Role="article" EntitySet="article" />
+            <End Role="ligne_de_livraison" EntitySet="ligne_de_livraison" />
+          </AssociationSet>
+          <AssociationSet Name="ligne_de_livraison_commande_FK" Association="Self.ligne_de_livraison_commande_FK">
+            <End Role="livraison" EntitySet="livraison" />
+            <End Role="ligne_de_livraison" EntitySet="ligne_de_livraison" />
           </AssociationSet>
           <AssociationSet Name="livraison_commande_FK" Association="Self.livraison_commande_FK">
             <End Role="commande" EntitySet="commande" />
@@ -267,12 +306,13 @@ avertissement 6035: La relation 'article_livraison1_FK' a des colonnes qui ne fo
           <Property Name="reassort" Type="Boolean" Nullable="false" />
           <Property Name="qteStock" Type="Int32" Nullable="false" />
           <Property Name="qteCommande" Type="Int32" Nullable="false" />
+          <Property Name="seuil" Type="Int32" Nullable="false" />
           <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="NomPromo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="idCommande" Type="Int32" />
           <NavigationProperty Name="genre" Relationship="Self.article_genre_FK" FromRole="article" ToRole="genre" />
           <NavigationProperty Name="promo" Relationship="Self.article_promo0_FK" FromRole="article" ToRole="promo" />
           <NavigationProperty Name="ligne_de_commande" Relationship="Self.ligne_de_commande_article0_FK" FromRole="article" ToRole="ligne_de_commande" />
+          <NavigationProperty Name="ligne_de_livraison" Relationship="Self.ligne_de_livraison_article0_FK" FromRole="article" ToRole="ligne_de_livraison" />
         </EntityType>
         <EntityType Name="categorie">
           <Key>
@@ -327,6 +367,17 @@ avertissement 6035: La relation 'article_livraison1_FK' a des colonnes qui ne fo
           <NavigationProperty Name="article" Relationship="Self.ligne_de_commande_article0_FK" FromRole="ligne_de_commande" ToRole="article" />
           <NavigationProperty Name="commande" Relationship="Self.ligne_de_commande_commande_FK" FromRole="ligne_de_commande" ToRole="commande" />
         </EntityType>
+        <EntityType Name="ligne_de_livraison">
+          <Key>
+            <PropertyRef Name="reference" />
+            <PropertyRef Name="idLivraison" />
+          </Key>
+          <Property Name="reference" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idLivraison" Type="Int32" Nullable="false" />
+          <Property Name="qte" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="article" Relationship="Self.ligne_de_livraison_article0_FK" FromRole="ligne_de_livraison" ToRole="article" />
+          <NavigationProperty Name="livraison" Relationship="Self.ligne_de_livraison_commande_FK" FromRole="ligne_de_livraison" ToRole="livraison" />
+        </EntityType>
         <EntityType Name="livraison">
           <Key>
             <PropertyRef Name="idLivraison" />
@@ -336,6 +387,7 @@ avertissement 6035: La relation 'article_livraison1_FK' a des colonnes qui ne fo
           <Property Name="numeroAR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="idCommande" Type="Int32" Nullable="false" />
           <NavigationProperty Name="commande" Relationship="Self.livraison_commande_FK" FromRole="livraison" ToRole="commande" />
+          <NavigationProperty Name="ligne_de_livraison" Relationship="Self.ligne_de_livraison_commande_FK" FromRole="livraison" ToRole="ligne_de_livraison" />
         </EntityType>
         <EntityType Name="promo">
           <Key>
@@ -396,6 +448,18 @@ avertissement 6035: La relation 'article_livraison1_FK' a des colonnes qui ne fo
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="ligne_de_livraison_article0_FK">
+          <End Role="article" Type="Self.article" Multiplicity="1" />
+          <End Role="ligne_de_livraison" Type="Self.ligne_de_livraison" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="article">
+              <PropertyRef Name="reference" />
+            </Principal>
+            <Dependent Role="ligne_de_livraison">
+              <PropertyRef Name="reference" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="genre_categorie_FK">
           <End Role="categorie" Type="Self.categorie" Multiplicity="1" />
           <End Role="genre" Type="Self.genre" Multiplicity="*" />
@@ -444,6 +508,18 @@ avertissement 6035: La relation 'article_livraison1_FK' a des colonnes qui ne fo
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="ligne_de_livraison_commande_FK">
+          <End Role="livraison" Type="Self.livraison" Multiplicity="1" />
+          <End Role="ligne_de_livraison" Type="Self.ligne_de_livraison" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="livraison">
+              <PropertyRef Name="idLivraison" />
+            </Principal>
+            <Dependent Role="ligne_de_livraison">
+              <PropertyRef Name="idLivraison" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="sebocestpasbeauEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="adresse" EntityType="Self.adresse" />
           <EntitySet Name="article" EntityType="Self.article" />
@@ -452,6 +528,7 @@ avertissement 6035: La relation 'article_livraison1_FK' a des colonnes qui ne fo
           <EntitySet Name="commande" EntityType="Self.commande" />
           <EntitySet Name="genre" EntityType="Self.genre" />
           <EntitySet Name="ligne_de_commande" EntityType="Self.ligne_de_commande" />
+          <EntitySet Name="ligne_de_livraison" EntityType="Self.ligne_de_livraison" />
           <EntitySet Name="livraison" EntityType="Self.livraison" />
           <EntitySet Name="promo" EntityType="Self.promo" />
           <AssociationSet Name="client_adresse_FK" Association="Self.client_adresse_FK">
@@ -470,6 +547,10 @@ avertissement 6035: La relation 'article_livraison1_FK' a des colonnes qui ne fo
             <End Role="article" EntitySet="article" />
             <End Role="ligne_de_commande" EntitySet="ligne_de_commande" />
           </AssociationSet>
+          <AssociationSet Name="ligne_de_livraison_article0_FK" Association="Self.ligne_de_livraison_article0_FK">
+            <End Role="article" EntitySet="article" />
+            <End Role="ligne_de_livraison" EntitySet="ligne_de_livraison" />
+          </AssociationSet>
           <AssociationSet Name="genre_categorie_FK" Association="Self.genre_categorie_FK">
             <End Role="categorie" EntitySet="categorie" />
             <End Role="genre" EntitySet="genre" />
@@ -485,6 +566,10 @@ avertissement 6035: La relation 'article_livraison1_FK' a des colonnes qui ne fo
           <AssociationSet Name="livraison_commande_FK" Association="Self.livraison_commande_FK">
             <End Role="commande" EntitySet="commande" />
             <End Role="livraison" EntitySet="livraison" />
+          </AssociationSet>
+          <AssociationSet Name="ligne_de_livraison_commande_FK" Association="Self.ligne_de_livraison_commande_FK">
+            <End Role="livraison" EntitySet="livraison" />
+            <End Role="ligne_de_livraison" EntitySet="ligne_de_livraison" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -517,9 +602,9 @@ avertissement 6035: La relation 'article_livraison1_FK' a des colonnes qui ne fo
                 <ScalarProperty Name="reassort" ColumnName="reassort" />
                 <ScalarProperty Name="qteStock" ColumnName="qteStock" />
                 <ScalarProperty Name="qteCommande" ColumnName="qteCommande" />
+                <ScalarProperty Name="seuil" ColumnName="seuil" />
                 <ScalarProperty Name="type" ColumnName="type" />
                 <ScalarProperty Name="NomPromo" ColumnName="NomPromo" />
-                <ScalarProperty Name="idCommande" ColumnName="idCommande" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -566,6 +651,15 @@ avertissement 6035: La relation 'article_livraison1_FK' a des colonnes qui ne fo
               <MappingFragment StoreEntitySet="ligne_de_commande">
                 <ScalarProperty Name="idCommande" ColumnName="idCommande" />
                 <ScalarProperty Name="reference" ColumnName="reference" />
+                <ScalarProperty Name="qte" ColumnName="qte" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ligne_de_livraison">
+            <EntityTypeMapping TypeName="sebocestpasbeauModel.ligne_de_livraison">
+              <MappingFragment StoreEntitySet="ligne_de_livraison">
+                <ScalarProperty Name="reference" ColumnName="reference" />
+                <ScalarProperty Name="idLivraison" ColumnName="idLivraison" />
                 <ScalarProperty Name="qte" ColumnName="qte" />
               </MappingFragment>
             </EntityTypeMapping>
