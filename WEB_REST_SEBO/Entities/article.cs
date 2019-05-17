@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+
+
 namespace WEB_REST_SEBO.Entities
 {
     using System;

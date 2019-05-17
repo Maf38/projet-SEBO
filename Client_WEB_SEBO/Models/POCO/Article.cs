@@ -23,5 +23,9 @@ namespace Client_WEB_SEBO.Models
         public object genre { get; set; }
         public object promo { get; set; }
         public List<object> ligne_de_commande { get; set; }
+
+     
     }
+
+
 }

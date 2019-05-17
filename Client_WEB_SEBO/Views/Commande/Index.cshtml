@@ -1,0 +1,55 @@
+﻿@model Client_WEB_SEBO.Models.ViewModel.ViewAllCommandes
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+
+    @foreach (var item in Model.commandes)
+    {
+    <table>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dateCommande)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.datePanier)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.e_mail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.etat)
+            </td>
+            <td>
+              @if (item.ligne_de_commande != null) {
+                @foreach (var commande in item.ligne_de_commande) {
+                    @Html.Display(commande.reference)
+                    @Html.Display("*******")
+                }
+              }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.client.prenom)
+            </td>
+            
+           
+        </tr>
+    </table>
+
+    }
+
+    
+</body>
+</html>

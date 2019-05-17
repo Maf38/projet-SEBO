@@ -1,0 +1,68 @@
+﻿@model Client_WEB_SEBO.Models.ViewModel.ViewSingleArticleModel
+
+@{
+                /**/
+
+                var genre = Model.genres.Where(item => item.type == Model.article.type).FirstOrDefault();
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            @{ if (!Model.article.image.IsEmpty())
+                                {
+                                    string urlImage = Model.article.image;
+                                    <img src="@urlImage" />
+                                }
+                                else
+                                {
+                                    string urlImage = Model.article.image;
+                                    <img src="~/Images/icones/false.png" />
+                                }
+                            }
+                        </div>
+                        <div class="col-sm-3">
+                            <h3 class="meta__title">@Model.article.titre</h3>
+                        </div>
+                        <div class="col-sm-3">
+                            <span class="meta__brand">@Model.article.auteur</span>
+                        </div>
+                        <div class="col-sm-2">
+                            <span class="meta__brand">@Model.article.prix</span>
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <button class="action action--button action--buy"><i class="fa fa-shopping-cart"></i><span class="text-hidden">Add to cart</span></button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Bottom bar with filter and cart info -->
+                <div class="bar">
+                    <!--div class="filter">
+                        <span class="filter__label">Filter: </span>
+                        <button class="action filter__item filter__item--selected" data-filter="*">All</button>
+                        <button class="action filter__item" data-filter=".CD"><i class="fas fa-compact-disc"></i><span class="action__text"> CD</span></button>
+                        <button class="action filter__item" data-filter=".DVD"><i class="fas fa-tv"></i><span class="action__text"> DVD</span></button>
+                        <button class="action filter__item" data-filter=".livre"><i class="fas fa-book"></i><span class="action__text"> Livre</span></button>
+
+                    </!--div-->
+                    <button class="cart" data-filter=".dresses">
+                        <i class="cart__icon fa fa-shopping-cart"></i>
+                        <span class="text-hidden">Shopping cart</span>
+                        <span class="cart__count">0</span>
+                    </button>
+                </div>
+
+}
+
+
+
+
+
+
+

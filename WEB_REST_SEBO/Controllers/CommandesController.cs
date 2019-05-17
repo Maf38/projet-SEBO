@@ -9,27 +9,28 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Web_API_SEBO.Entities;
+using WEB_REST_SEBO.Entities;
 
-namespace Web_API_SEBO.Controllers
+namespace WEB_REST_SEBO.Controllers
 {
-     
     public class CommandesController : ApiController
     {
-        private sebocestpasbeauEntities1 db = new sebocestpasbeauEntities1();
+        private sebocestpasbeauEntities db = new sebocestpasbeauEntities();
 
         public CommandesController()
         {
-            db.Configuration.ProxyCreationEnabled = false;
+            // db.Configuration.ProxyCreationEnabled=false;
+            db.Configuration.ProxyCreationEnabled = true;
+            db.Configuration.LazyLoadingEnabled = true;
         }
 
-        // GET: api/Commandes
+        // GET: api/commandes
         public IQueryable<commande> Getcommande()
         {
             return db.commande;
         }
 
-        // GET: api/Commandes/5
+        // GET: api/commandes/5
         [ResponseType(typeof(commande))]
         public async Task<IHttpActionResult> Getcommande(int id)
         {
@@ -42,7 +43,7 @@ namespace Web_API_SEBO.Controllers
             return Ok(commande);
         }
 
-        // PUT: api/Commandes/5
+        // PUT: api/commandes/5
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> Putcommande(int id, commande commande)
         {
@@ -77,7 +78,7 @@ namespace Web_API_SEBO.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Commandes
+        // POST: api/commandes
         [ResponseType(typeof(commande))]
         public async Task<IHttpActionResult> Postcommande(commande commande)
         {
@@ -92,7 +93,7 @@ namespace Web_API_SEBO.Controllers
             return CreatedAtRoute("DefaultApi", new { id = commande.id }, commande);
         }
 
-        // DELETE: api/Commandes/5
+        // DELETE: api/commandes/5
         [ResponseType(typeof(commande))]
         public async Task<IHttpActionResult> Deletecommande(int id)
         {

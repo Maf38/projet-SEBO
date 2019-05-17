@@ -6,10 +6,11 @@ using System.Web;
 
 namespace Client_WEB_SEBO.Models.ViewModel
 {
-    public class ViewArticleModel
+    public class ViewSingleArticleModel
     {
-        public IEnumerable <Article> articles { get; set; }
+        public Article article { get; set; }
         public IEnumerable <genre> genres { get; set; }
-        public panier panier { get; set; } 
+
+
     }
 }

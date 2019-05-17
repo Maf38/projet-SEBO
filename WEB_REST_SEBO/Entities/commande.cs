@@ -11,7 +11,9 @@ namespace WEB_REST_SEBO.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Runtime.Serialization;
+
+    [DataContract]
     public partial class commande
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,15 +22,20 @@ namespace WEB_REST_SEBO.Entities
             this.ligne_de_commande = new HashSet<ligne_de_commande>();
             this.livraison = new HashSet<livraison>();
         }
-    
+        [DataMember]
         public int id { get; set; }
+        [DataMember]
         public System.DateTime dateCommande { get; set; }
+        [DataMember]
         public string etat { get; set; }
+        [DataMember]
         public System.DateTime datePanier { get; set; }
+        [DataMember]
         public string e_mail { get; set; }
-    
+        [DataMember]
         public virtual client client { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [DataMember]
         public virtual ICollection<ligne_de_commande> ligne_de_commande { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<livraison> livraison { get; set; }

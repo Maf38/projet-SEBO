@@ -124,16 +124,27 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccueilController.cs" />
+    <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\CatalogueController.cs" />
+    <Compile Include="Controllers\CommandeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
+    <Compile Include="Controllers\TestAjaxController.cs" />
     <Compile Include="DAL\ArticlesDAL.cs" />
+    <Compile Include="DAL\CommandeDAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\POCO\Article.cs" />
-    <Compile Include="Models\POCO\Genre.cs" />
+    <Compile Include="Models\POCO\adresse.cs" />
+    <Compile Include="Models\POCO\article.cs" />
+    <Compile Include="Models\POCO\client.cs" />
+    <Compile Include="Models\POCO\commande.cs" />
+    <Compile Include="Models\POCO\genre.cs" />
+    <Compile Include="Models\POCO\ligne_de_commande.cs" />
+    <Compile Include="Models\POCO\panier.cs" />
+    <Compile Include="Models\ViewModel\ViewAllCommandes.cs" />
     <Compile Include="Models\ViewModel\ViewArticleModel.cs" />
+    <Compile Include="Models\ViewModel\ViewSingleArticleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +155,7 @@
     <Content Include="Content\cssFilterableMenu\component.css" />
     <Content Include="Content\cssFilterableMenu\demo.css" />
     <Content Include="Content\cssFilterableMenu\flickity.css" />
+    <Content Include="Content\modifSimple.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontsFilterableProductGrid\bpicons\bpicons.svg" />
     <Content Include="fonts\fontsFilterableProductGrid\bpicons\license.txt" />
@@ -154,6 +166,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Images\Icones\basket.png" />
     <Content Include="Images\Icones\false.png" />
+    <Content Include="Images\Icones\IconSebo.jpg" />
     <Content Include="Images\Icones\profil.png" />
     <Content Include="Images\Icones\SeboIcon.png" />
     <Content Include="Images\ImagesApple\calendar-sm.png" />
@@ -170,6 +183,7 @@
     <Content Include="Images\imgFilterableProductGrid\shirt.png" />
     <Content Include="Images\imgFilterableProductGrid\shoe.png" />
     <Content Include="Images\imgFilterableProductGrid\trousers.png" />
+    <Content Include="Images\LogoSebo.jpg" />
     <Content Include="Images\Sebo.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -188,6 +202,8 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -220,7 +236,15 @@
     <Content Include="Views\Shared\ViewAllArticles.cshtml" />
     <Content Include="Views\Accueil\ArticleByGenre.cshtml" />
     <Content Include="Views\Shared\_FilterableProductGrid.cshtml" />
-    <Content Include="Views\Shared\ViewAllArticlesGrid.cshtml" />
+    <Content Include="Views\Shared\_ViewAllArticlesGrid.cshtml" />
+    <Content Include="Views\Shared\_ViewOneArticleGrid.cshtml" />
+    <Content Include="Views\Article\Reference.cshtml" />
+    <Content Include="Views\Accueil\AfficheTableau.cshtml" />
+    <Content Include="Views\TestAjax\Index.cshtml" />
+    <Content Include="Views\TestAjax\AffichePanier.cshtml" />
+    <Content Include="Views\TestAjax\PriceRange.cshtml" />
+    <Content Include="Views\TestAjax\Ajax.cshtml" />
+    <Content Include="Views\Commande\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

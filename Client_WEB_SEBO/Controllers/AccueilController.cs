@@ -19,9 +19,23 @@ namespace Client_WEB_SEBO.Controllers
             ViewArticleModel viewArticles = new ViewArticleModel();
             viewArticles.articles = DAL.ArticlesDAL.GetArticles();
             viewArticles.genres = DAL.ArticlesDAL.GetGenres();
+            viewArticles.panier = new panier();
         
 
         return View(viewArticles);
+        }
+
+        public ActionResult AfficheNbArticlePanier(panier p)
+        {
+            
+            return PartialView();
+        }
+
+        
+        public ActionResult AfficheTableau(ViewArticleModel viewArticleModel)
+        {
+            //viewArticleModel.panier.AddArticle("CD2",1);
+            return PartialView(viewArticleModel);
         }
 
         public ActionResult ArticleByGenre(string id)

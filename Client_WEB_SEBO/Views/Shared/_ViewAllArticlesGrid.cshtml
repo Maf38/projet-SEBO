@@ -1,0 +1,40 @@
+﻿@model Client_WEB_SEBO.Models.ViewModel.ViewArticleModel
+
+
+@foreach (Client_WEB_SEBO.Models.Article article in Model.articles)
+{
+    var genre= Model.genres.Where(item => item.type == article.type).FirstOrDefault();
+    string categorie = "grid__item "+ genre.nomCategorie;
+    <div class="@categorie ">
+        <div class="slider">
+            <div class="slider__item">
+
+                @{ if (!article.image.IsEmpty())
+                    {
+                        string urlImage = article.image;
+                        <img src="@urlImage" />
+                    }
+                    else
+                    {
+                        string urlImage = article.image;
+                        <img src="~/Images/icones/false.png" />
+                    }
+                }
+            </div>
+            <div class="slider__item"><h3>@article.titre</h3>@article.description</div>
+
+        </div>
+        <a href="/Article/Reference/@article.reference">
+            <div class="meta">
+                <h3 class="meta__title">@article.titre</h3>
+                <span class="meta__brand">@article.auteur</span>
+                <span class="meta__price">€@article.prix</span>
+
+            </div>
+        </a>
+        <button class="action action--button action--buy" ><i class="fa fa-shopping-cart"></i><span class="text-hidden">Add to cart</span></button>
+
+        
+    </div>
+    
+}

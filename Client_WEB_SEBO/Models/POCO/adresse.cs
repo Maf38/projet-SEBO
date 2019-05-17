@@ -5,11 +5,7 @@ using System.Web;
 
 namespace Client_WEB_SEBO.Models.POCO
 {
-    public class genre
+    public class adresse
     {
-
-        public string type { get; set; }
-        public string nomCategorie { get; set; }
     }
-
 }

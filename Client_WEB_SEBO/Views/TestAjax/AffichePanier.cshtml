@@ -1,0 +1,17 @@
+﻿@model Client_WEB_SEBO.Models.POCO.Panier
+
+
+    @{ 
+        if (Model != null) {
+            <h3 > le panier contient @Model.ArticleCount() article(s) </h3>
+
+            foreach(var item in Model.listeArticle.Keys)
+            {
+            <h4> @item</h4>
+            }
+        }
+
+       
+     }
+
+<p>Vue partielle : @DateTime.Now.ToLongTimeString()</p>

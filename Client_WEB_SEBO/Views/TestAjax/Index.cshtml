@@ -1,0 +1,68 @@
+﻿@model Client_WEB_SEBO.Models.POCO.Panier
+@{
+    Layout = null;
+    
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+
+    <!-- Ajax  -->
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+</head>
+<body>
+    <div>
+        <h1>Ceci est une page test Ajax!!!</h1>
+    </div>
+
+    <div id="panierResultat">
+        @{
+            Html.RenderAction("AffichePanier");
+           
+        }
+    </div>
+
+    <p>Vue normale : @DateTime.Now.ToLongTimeString()</p>
+
+
+    @Ajax.ActionLink("Actualiser le résultat", "AffichePanier", new { panierSerialise = Model.Serialize() }
+    , new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "panierResultat",
+        HttpMethod = "POST",
+    })
+
+    @{Html.RenderAction("PriceRange", "TestAjax");}
+
+    <div class="well" id="update-me">
+        Click the button to see some AJAX content.
+       
+    </div>
+
+    @using (Ajax.BeginForm("Ajax", new AjaxOptions
+    {
+        HttpMethod = "POST", // HttpPost
+        InsertionMode = InsertionMode.Replace, // empty the target first
+        UpdateTargetId = "update-me" // place content within #update-me
+    }))
+    {
+        <button type="submit" class="btn btn-default">
+            <i class="glyphicon glyphicon-refresh"></i>
+            Click Me!
+        </button>
+    }
+
+</body>
+</html>

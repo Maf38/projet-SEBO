@@ -126,7 +126,8 @@
 		setTimeout(function() {cartItems.innerHTML = Number(cartItems.innerHTML) + 1;}, 200);
 		onEndAnimation(cartItems, function() {
 			classie.remove(cart, 'cart--animate');
-		});
+        });
+        
 	}
 
 	function recalcFlickities() {
