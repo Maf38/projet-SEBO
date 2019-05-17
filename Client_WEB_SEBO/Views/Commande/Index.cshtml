@@ -34,11 +34,16 @@
             </td>
             <td>
               @if (item.ligne_de_commande != null) {
-                @foreach (var commande in item.ligne_de_commande) {
-                    @Html.Display(commande.reference)
-                    @Html.Display("*******")
-                }
+                  foreach (var commande in item.ligne_de_commande) {
+                    @Html.DisplayName(commande.reference)
+                    @Html.DisplayName("*******")
+                  }
               }
+              else
+              {
+                      @Html.DisplayName("Ligne commande non détéectée!")
+                  }
+
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.client.prenom)

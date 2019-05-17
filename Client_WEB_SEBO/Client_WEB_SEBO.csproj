@@ -184,6 +184,7 @@
     <Content Include="Images\imgFilterableProductGrid\shoe.png" />
     <Content Include="Images\imgFilterableProductGrid\trousers.png" />
     <Content Include="Images\LogoSebo.jpg" />
+    <Content Include="Images\no-image-icon.png" />
     <Content Include="Images\Sebo.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
