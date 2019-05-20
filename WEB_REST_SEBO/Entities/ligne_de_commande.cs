@@ -11,13 +11,22 @@ namespace WEB_REST_SEBO.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Runtime.Serialization;
+
+    [DataContract]
     public partial class ligne_de_commande
     {
+        [Column(Order = 1)]
+        [DataMember]
         public int idCommande { get; set; }
+        [Column(Order = 2)]
+        [DataMember]
         public string reference { get; set; }
+        [Column(Order = 3)]
+        [DataMember]
         public int qte { get; set; }
-    
+      
         public virtual article article { get; set; }
         public virtual commande commande { get; set; }
     }

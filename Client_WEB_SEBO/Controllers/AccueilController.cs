@@ -18,11 +18,42 @@ namespace Client_WEB_SEBO.Controllers
 
             ViewArticleModel viewArticles = new ViewArticleModel();
             viewArticles.articles = DAL.ArticlesDAL.GetArticles();
-            viewArticles.genres = DAL.ArticlesDAL.GetGenres();
-            viewArticles.panier = new panier();
-        
+           
 
-        return View(viewArticles);
+            //gestion du panier
+            HttpCookie reqCookies = Request.Cookies["userInfo"];
+
+            if (reqCookies == null)//cas où le visiteur vient pour la premiere fois ou que le cookie a expiré
+            {
+                HttpCookie userInfo = new HttpCookie("userInfo");
+                userInfo.Expires = DateTime.Now.AddHours(1);//Expiration du cookie
+
+                viewArticles.commande = DAL.CommandeDAL.CreerCommande();
+
+                if (viewArticles.commande != null)//si la création d'une commande s'est bien passé
+                {
+                    Response.Cookies["numCommande"].Value = viewArticles.commande.id.ToString();
+
+                }
+                else
+                {
+                    Response.Cookies["numCommande"].Value = "131313131313";//par convention 131313131313 est la commande qui gere les problemes (utile????)
+
+                }
+
+                Response.Cookies.Add(userInfo);//sauvegarde du cookie
+
+            }
+            else// on recupere la commande associée au numero de commande du cookie dans le modele
+            {
+
+
+                viewArticles.commande = DAL.CommandeDAL.GetCommande(reqCookies["numCommande"].ToString());
+            }
+
+
+
+            return View(viewArticles);
         }
 
         public ActionResult AfficheNbArticlePanier(panier p)

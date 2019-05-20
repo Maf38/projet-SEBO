@@ -14,10 +14,26 @@ namespace Client_WEB_SEBO
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+               name: "AjoutPanier",
+               url: "Commande/AjouterArticle/{idCommande}/{referenceArticle}/{qty}",
+               defaults: new { controller = "Commande", action = "AjouterArticle",idCommande = "2",referenceArticle="CD1" , qty= "1"}
+           );
+
+
+            routes.MapRoute(
+               name: "Panier",
+               url: "Panier/{numCommande}",
+               defaults: new { controller = "Commande", action = "Panier", numCommande = "1" }
+           );
+
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Accueil", action = "Index", id = UrlParameter.Optional }
             );
+
+           
         }
     }
 }

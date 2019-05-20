@@ -1,4 +1,7 @@
-﻿using Client_WEB_SEBO.Models.ViewModel;
+﻿using Client_WEB_SEBO.DAL;
+using Client_WEB_SEBO.Models;
+using Client_WEB_SEBO.Models.POCO;
+using Client_WEB_SEBO.Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +16,62 @@ namespace Client_WEB_SEBO.Controllers
         public ActionResult Index()
         {
             ViewAllCommandes viewCommandes = new ViewAllCommandes();
-                viewCommandes.commandes= DAL.CommandeDAL.GetCommandes();
-            
+            viewCommandes.commandes = DAL.CommandeDAL.GetCommandes();
+
             return View(viewCommandes);
         }
-    }
+
+        public ActionResult GetCommande(string id)
+        {
+            commande com = DAL.CommandeDAL.GetCommande(id);
+
+            return View(com);
+        }
+
+        public ActionResult CreerCommande()
+        {
+            commande com = DAL.CommandeDAL.CreerCommande();
+
+            return View(com);
+        }
+
+        
+        public ActionResult Panier(string numCommande)
+        {
+            ViewPanier panier = new ViewPanier();
+            panier.commande= DAL.CommandeDAL.GetCommande(numCommande);
+
+            IEnumerable<ligne_de_commande> ttesLesLignes = CommandeDAL.GetLigneDeCommandes();
+            panier.commande.ligne_de_commande = ttesLesLignes.Where(ldc => ldc.idCommande == int.Parse(numCommande));
+
+
+            panier.articles = DAL.ArticlesDAL.GetArticles();
+                                 
+            return View(panier);
+        }
+
+        public ActionResult AjouterArticle(string idCommande, string referenceArticle, int qty)
+        {
+
+            ligne_de_commande ldc = DAL.CommandeDAL.AjouterArticle(idCommande, referenceArticle, qty);
+            if (ldc == null)
+            {
+                ldc = new ligne_de_commande();
+                ldc.reference = "CD1";
+                ldc.idCommande = 2;
+                ldc.qte = 1;
+            }
+
+            return View(ldc);
+        }
+
+                        /*
+            [Route (" Commande/Panier")]
+            public ActionResult Panier()
+            {
+                return View("Error");
+            }
+
+        */
+        }
 }

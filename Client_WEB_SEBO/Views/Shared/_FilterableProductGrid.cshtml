@@ -82,14 +82,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     
-                    @Ajax.ActionLink("Actualiser le résultat", "AfficheTableau","Accueil", new AjaxOptions
-                    {
-                        InsertionMode = InsertionMode.Replace,
-                        UpdateTargetId = "tableauResultat",
-                        HttpMethod = "GET"
-                    })
-
-
+                  
                     <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                     <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                 </ul>
@@ -113,15 +106,13 @@
 
 
         <div id="tableauResultat">
-            @{
-               Html.RenderAction("AfficheTableau", new { rechercheViewModel = Model });
-            }
+         <span>@Model.commande.getArticleCount() Article(s) au panier    </span> 
         </div>
 
         <button class="cart" data-filter=".dresses">
             <i class="cart__icon fa fa-shopping-cart"></i>
             <span class="text-hidden">Shopping cart</span>
-            <span class="cart__count">0</span>
+            <span class="cart__count">@Model.commande.getArticleCount()</span>
         </button>
 
 

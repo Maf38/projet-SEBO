@@ -32,7 +32,7 @@ namespace WEB_REST_SEBO.Entities
         public System.DateTime datePanier { get; set; }
         [DataMember]
         public string e_mail { get; set; }
-        [DataMember]
+     
         public virtual client client { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         [DataMember]

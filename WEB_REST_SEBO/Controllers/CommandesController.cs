@@ -80,17 +80,22 @@ namespace WEB_REST_SEBO.Controllers
 
         // POST: api/commandes
         [ResponseType(typeof(commande))]
-        public async Task<IHttpActionResult> Postcommande(commande commande)
+        public async Task<IHttpActionResult> Postcommande()
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.commande.Add(commande);
+            commande comm = new commande();
+            comm.etat = "panier";
+            comm.datePanier = System.DateTime.Now;
+            comm.dateCommande = System.DateTime.Now;
+            comm.e_mail="visiteur@sebo.com";
+            db.commande.Add(comm);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = commande.id }, commande);
+            return CreatedAtRoute("DefaultApi", new { id = comm.id }, comm);
         }
 
         // DELETE: api/commandes/5

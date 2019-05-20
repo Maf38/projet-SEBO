@@ -144,6 +144,7 @@
     <Compile Include="Models\POCO\panier.cs" />
     <Compile Include="Models\ViewModel\ViewAllCommandes.cs" />
     <Compile Include="Models\ViewModel\ViewArticleModel.cs" />
+    <Compile Include="Models\ViewModel\ViewPanier.cs" />
     <Compile Include="Models\ViewModel\ViewSingleArticleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -184,6 +185,7 @@
     <Content Include="Images\imgFilterableProductGrid\shoe.png" />
     <Content Include="Images\imgFilterableProductGrid\trousers.png" />
     <Content Include="Images\LogoSebo.jpg" />
+    <Content Include="Images\no-image-icon.png" />
     <Content Include="Images\Sebo.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -245,10 +247,15 @@
     <Content Include="Views\TestAjax\PriceRange.cshtml" />
     <Content Include="Views\TestAjax\Ajax.cshtml" />
     <Content Include="Views\Commande\Index.cshtml" />
+    <Content Include="Views\Commande\GetCommande.cshtml" />
+    <Content Include="Views\Commande\CreerCommande.cshtml" />
+    <Content Include="Views\Commande\Panier.cshtml" />
+    <Content Include="Views\Commande\AjouterArticle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Images\Thumbs\" />
+    <Folder Include="Views\Panier\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

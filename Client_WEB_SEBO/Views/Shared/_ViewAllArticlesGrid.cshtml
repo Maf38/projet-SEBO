@@ -17,7 +17,7 @@
                     else
                     {
                         string urlImage = article.image;
-                        <img src="~/Images/icones/false.png" />
+                        <img src="~/Images/no-image-icon.png" />
                     }
                 }
             </div>
@@ -32,9 +32,11 @@
 
             </div>
         </a>
-        <button class="action action--button action--buy" ><i class="fa fa-shopping-cart"></i><span class="text-hidden">Add to cart</span></button>
 
-        
+        <a data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update="#panierResultat" href="/Commande/AjouterArticle/@Model.commande.id/@article.reference/1">
+            <button class="action action--button action--buy"><i class="fa fa-shopping-cart"></i><span class="text-hidden">Add to cart</span></button>
+         </a>
+
     </div>
     
 }

@@ -1,0 +1,22 @@
+﻿@model Client_WEB_SEBO.Models.POCO.commande
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>GetCommande</title>
+</head>
+<body>
+    <div>
+        @Html.DisplayFor(item => item.id)
+        @Html.DisplayFor(item => item.etat)
+        @Html.DisplayFor(item => item.dateCommande)
+        @Html.DisplayFor(item => item.datePanier)
+        @Html.DisplayFor(item => item.e_mail)
+    </div>
+</body>
+</html>

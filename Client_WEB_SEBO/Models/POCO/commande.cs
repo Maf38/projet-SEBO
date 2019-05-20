@@ -15,8 +15,19 @@ namespace Client_WEB_SEBO.Models.POCO
         public System.DateTime datePanier { get; set; }
         public string e_mail { get; set; }
         public  client client { get; set; }       
-        public virtual ICollection <ligne_de_commande> ligne_de_commande { get; set; }
+        public virtual IEnumerable <ligne_de_commande> ligne_de_commande { get; set; }
       
+
+        public int getArticleCount()
+        {
+            int nb = 0;
+            foreach(var ldc in ligne_de_commande)
+            {
+                nb = nb + ldc.qte;
+            }
+
+            return nb;
+        }
 
     }
 }
