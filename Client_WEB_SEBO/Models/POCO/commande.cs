@@ -21,11 +21,13 @@ namespace Client_WEB_SEBO.Models.POCO
         public int getArticleCount()
         {
             int nb = 0;
-            foreach(var ldc in ligne_de_commande)
+            if (ligne_de_commande != null)
             {
-                nb = nb + ldc.qte;
+                foreach (var ldc in ligne_de_commande)
+                {
+                    nb = nb + ldc.qte;
+                }
             }
-
             return nb;
         }
 

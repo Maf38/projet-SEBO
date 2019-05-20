@@ -1,4 +1,14 @@
-﻿@model Client_WEB_SEBO.Models.POCO.ligne_de_commande
+﻿@model IEnumerable <Client_WEB_SEBO.Models.POCO.ligne_de_commande>
 
-<span> Ajout de l'article @Model.reference , quantité =  @Model.qte</span>
+@foreach (var ldc in Model)
+{
+    
+   <div>
+        @Html.DisplayName(ldc.idCommande.ToString())
+        @Html.DisplayName(ldc.reference)    
+        @Html.DisplayName(ldc.qte.ToString())
+       
+    </div>
+
+}
  

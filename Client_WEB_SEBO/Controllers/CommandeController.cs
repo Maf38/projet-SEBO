@@ -42,7 +42,7 @@ namespace Client_WEB_SEBO.Controllers
             panier.commande= DAL.CommandeDAL.GetCommande(numCommande);
 
             IEnumerable<ligne_de_commande> ttesLesLignes = CommandeDAL.GetLigneDeCommandes();
-            panier.commande.ligne_de_commande = ttesLesLignes.Where(ldc => ldc.idCommande == int.Parse(numCommande));
+            panier.commande.ligne_de_commande = ttesLesLignes.Where(ldc => ldc.idCommande==int.Parse(numCommande));
 
 
             panier.articles = DAL.ArticlesDAL.GetArticles();
@@ -52,8 +52,10 @@ namespace Client_WEB_SEBO.Controllers
 
         public ActionResult AjouterArticle(string idCommande, string referenceArticle, int qty)
         {
-
+            //on ajoute les lignes de commande grace à la methode du DAL
             ligne_de_commande ldc = DAL.CommandeDAL.AjouterArticle(idCommande, referenceArticle, qty);
+
+            //on verifie si le traitement s'est bien passé en testant la nullité
             if (ldc == null)
             {
                 ldc = new ligne_de_commande();
@@ -62,7 +64,11 @@ namespace Client_WEB_SEBO.Controllers
                 ldc.qte = 1;
             }
 
-            return View(ldc);
+            //on met à jour la ligne de commande envoyé à la vue 
+            IEnumerable <ligne_de_commande> ligneDeCommandeUpdate =  DAL.CommandeDAL.GetLigneDeCommandes().Where(c => c.idCommande == int.Parse(idCommande));
+
+
+            return PartialView(ligneDeCommandeUpdate);
         }
 
                         /*

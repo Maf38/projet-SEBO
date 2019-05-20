@@ -200,10 +200,10 @@ namespace Client_WEB_SEBO.DAL
             {
                 //creation de l'URL d'acces au web service
                 client.BaseAddress = new Uri(BASE_ADRESS);
-                string uriREST = "ligneDeCommande/" + idCommande + "/" + referenceArticle + "/" + qty;                    
+                string uriREST = "ligneDeCommande/" + idCommande + "/" + referenceArticle + "/" + qty;
 
-
-                var responseTask = client.GetAsync(uriREST);
+                HttpContent content = null;
+                var responseTask = client.PostAsync(uriREST,content);
                 responseTask.Wait();
 
                 //To store result of web api response.   

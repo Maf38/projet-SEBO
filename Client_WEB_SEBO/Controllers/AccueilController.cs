@@ -18,37 +18,42 @@ namespace Client_WEB_SEBO.Controllers
 
             ViewArticleModel viewArticles = new ViewArticleModel();
             viewArticles.articles = DAL.ArticlesDAL.GetArticles();
-           
+            viewArticles.genres = DAL.ArticlesDAL.GetGenres();
 
             //gestion du panier
-            HttpCookie reqCookies = Request.Cookies["userInfo"];
+            HttpCookie cookie = Request.Cookies["userInfo"];
+          
 
-            if (reqCookies == null)//cas où le visiteur vient pour la premiere fois ou que le cookie a expiré
+            if (cookie == null)//cas où le visiteur vient pour la premiere fois ou que le cookie a expiré
             {
-                HttpCookie userInfo = new HttpCookie("userInfo");
-                userInfo.Expires = DateTime.Now.AddHours(1);//Expiration du cookie
+                cookie = new HttpCookie("userInfo");
+                cookie.Expires = DateTime.Now.AddHours(1);//Expiration du cookie
+                
 
                 viewArticles.commande = DAL.CommandeDAL.CreerCommande();
 
                 if (viewArticles.commande != null)//si la création d'une commande s'est bien passé
                 {
-                    Response.Cookies["numCommande"].Value = viewArticles.commande.id.ToString();
+                    cookie["idCommande"] = viewArticles.commande.id.ToString();
 
                 }
                 else
                 {
-                    Response.Cookies["numCommande"].Value = "131313131313";//par convention 131313131313 est la commande qui gere les problemes (utile????)
+                   cookie.Value = "2";//par convention 2 est la commande qui gere les problemes (utile????)
 
                 }
 
-                Response.Cookies.Add(userInfo);//sauvegarde du cookie
+                Response.Cookies.Add(cookie);//sauvegarde du cookie
 
             }
             else// on recupere la commande associée au numero de commande du cookie dans le modele
             {
 
 
-                viewArticles.commande = DAL.CommandeDAL.GetCommande(reqCookies["numCommande"].ToString());
+                string idCommande = string.Empty;
+                idCommande = cookie["idCommande"].ToString();
+
+                viewArticles.commande = DAL.CommandeDAL.GetCommande(idCommande);
             }
 
 
@@ -79,5 +84,64 @@ namespace Client_WEB_SEBO.Controllers
 
             return View(viewArticles);
         }
+
+        [HttpGet]
+        public ActionResult AjouterArticle()
+        {
+            ViewPanier panier = new ViewPanier();
+
+
+            //on recupere la commande courante
+            HttpCookie cookie = Request.Cookies["userInfo"];
+
+            string idCommande = string.Empty;
+            idCommande = cookie["idCommande"].ToString();
+
+            panier.commande = DAL.CommandeDAL.GetCommande(idCommande);
+
+            //on recupere les lignes de commande de la commande
+            panier.commande.ligne_de_commande= DAL.CommandeDAL.GetLigneDeCommandes().Where(c => c.idCommande == int.Parse(idCommande));
+
+            //on a pas rajouté d'article au panier
+            panier.ajout = false;
+
+            //Attention!!!pour l'instant on ne recupère pas les articles pour le viewModel
+
+            return PartialView(panier);
+        }
+
+                                  
+        public ActionResult AjouterArticle(string idCommande, string referenceArticle, int qty)
+        {
+
+            ViewPanier panier = new ViewPanier();
+
+            //on ajoute les lignes de commande grace à la methode du DAL
+            ligne_de_commande ldc = DAL.CommandeDAL.AjouterArticle(idCommande, referenceArticle, qty);
+
+            //on verifie si le traitement s'est bien passé en testant la nullité
+            if (ldc == null)
+            {
+                ldc = new ligne_de_commande();
+                ldc.reference = "CD1";
+                ldc.idCommande = 2;
+                ldc.qte = 1;
+            }
+
+            //on a ajouté un article au panier
+            panier.ajout = true;
+            panier.qtyLastArticle = qty;
+            panier.refLastArticle = referenceArticle;
+
+            //on met à jout la commande du view model
+            panier.commande = DAL.CommandeDAL.GetCommande(idCommande);
+
+            //on met à jour la ligne de commande envoyé à la vue 
+            panier.commande.ligne_de_commande = DAL.CommandeDAL.GetLigneDeCommandes().Where(c => c.idCommande == int.Parse(idCommande));
+
+
+            return PartialView(panier);
+        }
+
     }
 }

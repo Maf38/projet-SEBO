@@ -251,6 +251,7 @@
     <Content Include="Views\Commande\CreerCommande.cshtml" />
     <Content Include="Views\Commande\Panier.cshtml" />
     <Content Include="Views\Commande\AjouterArticle.cshtml" />
+    <Content Include="Views\Accueil\AjouterArticle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
