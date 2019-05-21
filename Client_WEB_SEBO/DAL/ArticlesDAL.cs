@@ -77,7 +77,7 @@ namespace Client_WEB_SEBO.DAL
 
                
 
-                uriREST = "articlesByType/" + type;
+                string uriREST = "articlesByType/" + type;
                 
                 var responseTask = client.GetAsync(uriREST);
                 responseTask.Wait();

@@ -13,5 +13,6 @@ namespace Client_WEB_SEBO.Models.ViewModel
         public commande commande { get; set; } 
 
         public bool bottomBar { get; set; } //booleen qui me sert à afficher ou non la bar de filtre du bas
+        public string searchWord { get; set; } //mot cherché dans la checkbox
     }
 }

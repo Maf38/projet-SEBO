@@ -145,6 +145,47 @@ namespace Client_WEB_SEBO.Controllers
             return View(viewArticles);
         }
 
+        public ActionResult ArticleByType(string id)
+        {
+
+            ViewArticleModel viewArticles = InitArticleModel();
+            viewArticles.articles = DAL.ArticlesDAL.GetArticlesByType(id);
+            viewArticles.bottomBar = false;
+
+            return View(viewArticles);
+        }
+
+        public ActionResult Recherche(string searchWord)
+        {
+            ViewArticleModel viewArticles = InitArticleModel();
+
+            //on recupere tous les articles
+            viewArticles.articles = DAL.ArticlesDAL.GetArticles();
+
+            //On traite les champs recherchés qui pourrait etre vide
+            foreach (Article art in viewArticles.articles)
+            {
+                if (art.description == null)
+                {
+                    art.description = "";
+                }
+
+            }    
+                
+                
+                
+               viewArticles.articles= viewArticles.articles.Where(art=>art.reference.Equals(searchWord,StringComparison.OrdinalIgnoreCase) ||
+                                                                        art.description.ToLower().Contains(searchWord.ToLower()) ||
+                                                                        art.editeur.ToLower().Contains(searchWord.ToLower()) ||
+                                                                        art.titre.ToLower().Contains(searchWord.ToLower())   ||
+                                                                        art.auteur.ToLower().Contains(searchWord.ToLower()) 
+            );
+            viewArticles.bottomBar = false;
+
+
+            return View(viewArticles);
+        }
+
         [HttpGet]
         public ActionResult UpdatePanier()
         {

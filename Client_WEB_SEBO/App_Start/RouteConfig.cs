@@ -29,6 +29,12 @@ namespace Client_WEB_SEBO
 
 
             routes.MapRoute(
+                name: "Recherche",
+                url: "Accueil/Recherche/{searchWord}",
+                defaults: new { controller = "Accueil", action = "Recherche", searchWord="CD1" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Accueil", action = "Index", id = UrlParameter.Optional }

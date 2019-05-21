@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_FilterableProductGrid.cshtml";
+}
+
+
+@model Client_WEB_SEBO.Models.ViewModel.ViewArticleModel
+
+@{
+    ViewBag.Title = "GetArticles";
+}
+
+
+@Html.Partial("~/Views/Shared/_ViewAllArticlesGrid.cshtml")

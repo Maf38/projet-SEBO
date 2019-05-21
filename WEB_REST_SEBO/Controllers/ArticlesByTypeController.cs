@@ -13,7 +13,7 @@ using WEB_REST_SEBO.Entities;
 
 namespace WEB_REST_SEBO.Controllers
 {
-    public class ArticlesByType : ApiController
+    public class ArticlesByTypeController : ApiController
     {
         private sebocestpasbeauEntities db = new sebocestpasbeauEntities();
 
@@ -24,7 +24,7 @@ namespace WEB_REST_SEBO.Controllers
         }
 
         //GET: api/ArticlesByType/pop-rock
-        public IQueryable<article> Getgenre(string id)
+        public IQueryable<article> Gettype(string id)
         {
             IQueryable<article> listeArticle = db.article.Where(art => art.genre.type == id);
 
