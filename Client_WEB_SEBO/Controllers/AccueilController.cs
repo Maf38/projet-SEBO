@@ -93,14 +93,25 @@ namespace Client_WEB_SEBO.Controllers
 
             //on recupere la commande courante
             HttpCookie cookie = Request.Cookies["userInfo"];
-
             string idCommande = string.Empty;
-            idCommande = cookie["idCommande"].ToString();
+            if (cookie != null)
+            {
+               
+                idCommande = cookie["idCommande"].ToString();
+            }
+
+            if (idCommande == null || idCommande=="0")
+            {
+                idCommande ="1";
+            }
 
             panier.commande = DAL.CommandeDAL.GetCommande(idCommande);
 
+          
+
             //on recupere les lignes de commande de la commande
             panier.commande.ligne_de_commande= DAL.CommandeDAL.GetLigneDeCommandes().Where(c => c.idCommande == int.Parse(idCommande));
+            
 
             //on a pas rajouté d'article au panier
             panier.ajout = false;
@@ -109,15 +120,15 @@ namespace Client_WEB_SEBO.Controllers
 
             return PartialView(panier);
         }
-
-                                  
-        public ActionResult AjouterArticle(string idCommande, string referenceArticle, int qty)
+        [Route("Accueil/AjouterArticle/{numCommande}/{referenceArticle}/{qty}")]
+        [HttpPost]
+        public ActionResult AjouterArticle(string numCommande, string referenceArticle, int qty)
         {
 
             ViewPanier panier = new ViewPanier();
 
             //on ajoute les lignes de commande grace à la methode du DAL
-            ligne_de_commande ldc = DAL.CommandeDAL.AjouterArticle(idCommande, referenceArticle, qty);
+            ligne_de_commande ldc = DAL.CommandeDAL.AjouterArticle(numCommande, referenceArticle, qty);
 
             //on verifie si le traitement s'est bien passé en testant la nullité
             if (ldc == null)
@@ -134,10 +145,10 @@ namespace Client_WEB_SEBO.Controllers
             panier.refLastArticle = referenceArticle;
 
             //on met à jout la commande du view model
-            panier.commande = DAL.CommandeDAL.GetCommande(idCommande);
+            panier.commande = DAL.CommandeDAL.GetCommande(numCommande);
 
             //on met à jour la ligne de commande envoyé à la vue 
-            panier.commande.ligne_de_commande = DAL.CommandeDAL.GetLigneDeCommandes().Where(c => c.idCommande == int.Parse(idCommande));
+            panier.commande.ligne_de_commande = DAL.CommandeDAL.GetLigneDeCommandes().Where(c => c.idCommande == int.Parse(numCommande));
 
 
             return PartialView(panier);

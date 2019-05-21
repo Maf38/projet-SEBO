@@ -16,8 +16,8 @@ namespace Client_WEB_SEBO
                       
             routes.MapRoute(
                name: "AjoutPanier",
-               url: "{controller}/{action}/{idCommande}/{referenceArticle}/{qty}",
-               defaults: new { controller = "Acceuil", action = "AjouterArticle",idCommande = "2",referenceArticle="CD1" , qty= "1"}
+               url: "Accueil/AjouterArticle/{numCommande}/{referenceArticle}/{qty}",
+               defaults: new { controller = "Acceuil", action = "AjouterArticle",numCommande = "2",referenceArticle="CD1" , qty= "1"}
            );
 
 
