@@ -50,7 +50,42 @@ namespace Client_WEB_SEBO.Controllers
             return View(panier);
         }
 
-        public ActionResult AjouterArticle(string idCommande, string referenceArticle, int qty)
+        public ActionResult AjouterArticle(string numCommande, string referenceArticle, int qty)
+        {
+
+            ViewPanier panier = new ViewPanier();
+
+            //on ajoute les lignes de commande grace à la methode du DAL
+            ligne_de_commande ldc = DAL.CommandeDAL.AjouterArticle(numCommande, referenceArticle, qty);
+
+            //on verifie si le traitement s'est bien passé en testant la nullité
+            if (ldc == null)
+            {
+                ldc = new ligne_de_commande();
+                ldc.reference = "CD1";
+                ldc.idCommande = 2;
+                ldc.qte = 1;
+            }
+
+            //on a ajouté un article au panier
+            panier.ajout = true;
+            panier.qtyLastArticle = qty;
+            panier.refLastArticle = referenceArticle;
+
+            //on met à jout la commande du view model
+            panier.commande = DAL.CommandeDAL.GetCommande(numCommande);
+
+            //on met à jour la ligne de commande envoyé à la vue 
+            panier.commande.ligne_de_commande = DAL.CommandeDAL.GetLigneDeCommandes().Where(c => c.idCommande == int.Parse(numCommande));
+
+
+            return PartialView(panier);
+        }
+
+        /*
+         * Ancienne Version!!!!
+         * 
+         * public ActionResult AjouterArticle(string idCommande, string referenceArticle, int qty)
         {
             //on ajoute les lignes de commande grace à la methode du DAL
             ligne_de_commande ldc = DAL.CommandeDAL.AjouterArticle(idCommande, referenceArticle, qty);
@@ -70,14 +105,14 @@ namespace Client_WEB_SEBO.Controllers
 
             return PartialView(ligneDeCommandeUpdate);
         }
-
-                        /*
-            [Route (" Commande/Panier")]
-            public ActionResult Panier()
-            {
-                return View("Error");
-            }
-
         */
-        }
+        /*
+[Route (" Commande/Panier")]
+public ActionResult Panier()
+{
+return View("Error");
+}
+
+*/
+    }
 }

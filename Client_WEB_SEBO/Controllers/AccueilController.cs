@@ -16,19 +16,42 @@ namespace Client_WEB_SEBO.Controllers
         public ActionResult Index()
         {
 
-            ViewArticleModel viewArticles = new ViewArticleModel();
+            ViewArticleModel viewArticles = InitArticleModel();
             viewArticles.articles = DAL.ArticlesDAL.GetArticles();
+            viewArticles.bottomBar = true;
+
+            return View(viewArticles);
+        }
+
+
+        public ActionResult NavBar()
+        {
+
+            ViewArticleModel viewArticles = InitArticleModel();
+            viewArticles.articles = DAL.ArticlesDAL.GetArticles();
+
+            return PartialView(viewArticles);
+        }
+
+
+        //methode permettant d'initialiser le viewModel (gestion des cookies et de la commande)
+        //attention on ne charge pas les articles du model dans l'initialisation !!!
+        public ViewArticleModel InitArticleModel()
+        {
+            ViewArticleModel viewArticles = new ViewArticleModel();
+
+            
             viewArticles.genres = DAL.ArticlesDAL.GetGenres();
 
             //gestion du panier
             HttpCookie cookie = Request.Cookies["userInfo"];
-          
+
 
             if (cookie == null)//cas où le visiteur vient pour la premiere fois ou que le cookie a expiré
             {
                 cookie = new HttpCookie("userInfo");
                 cookie.Expires = DateTime.Now.AddHours(1);//Expiration du cookie
-                
+
 
                 viewArticles.commande = DAL.CommandeDAL.CreerCommande();
 
@@ -39,7 +62,7 @@ namespace Client_WEB_SEBO.Controllers
                 }
                 else
                 {
-                   cookie.Value = "2";//par convention 2 est la commande qui gere les problemes (utile????)
+                    cookie.Value = "2";//par convention 2 est la commande qui gere les problemes (utile????)
 
                 }
 
@@ -56,10 +79,42 @@ namespace Client_WEB_SEBO.Controllers
                 viewArticles.commande = DAL.CommandeDAL.GetCommande(idCommande);
             }
 
-
-
-            return View(viewArticles);
+            return viewArticles;
         }
+
+        public ActionResult AjouterArticle(string numCommande, string referenceArticle, int qty)
+        {
+
+            ViewPanier panier = new ViewPanier();
+
+            //on ajoute les lignes de commande grace à la methode du DAL
+            ligne_de_commande ldc = DAL.CommandeDAL.AjouterArticle(numCommande, referenceArticle, qty);
+
+            //on verifie si le traitement s'est bien passé en testant la nullité
+            if (ldc == null)
+            {
+                ldc = new ligne_de_commande();
+                ldc.reference = "CD1";
+                ldc.idCommande = 2;
+                ldc.qte = 1;
+            }
+
+            //on a ajouté un article au panier
+            panier.ajout = true;
+            panier.qtyLastArticle = qty;
+            panier.refLastArticle = referenceArticle;
+
+            //on met à jout la commande du view model
+            panier.commande = DAL.CommandeDAL.GetCommande(numCommande);
+
+            //on met à jour la ligne de commande envoyé à la vue 
+            panier.commande.ligne_de_commande = DAL.CommandeDAL.GetLigneDeCommandes().Where(c => c.idCommande == int.Parse(numCommande));
+
+
+            return PartialView(panier);
+        }
+
+
 
         public ActionResult AfficheNbArticlePanier(panier p)
         {
@@ -67,7 +122,13 @@ namespace Client_WEB_SEBO.Controllers
             return PartialView();
         }
 
-        
+        public ActionResult testAjax(string nom)
+        {
+            ViewBag.nom = nom;
+            return PartialView();
+        }
+
+
         public ActionResult AfficheTableau(ViewArticleModel viewArticleModel)
         {
             //viewArticleModel.panier.AddArticle("CD2",1);
@@ -77,16 +138,15 @@ namespace Client_WEB_SEBO.Controllers
         public ActionResult ArticleByGenre(string id)
         {
 
-            ViewArticleModel viewArticles = new ViewArticleModel();
+            ViewArticleModel viewArticles = InitArticleModel();
             viewArticles.articles = DAL.ArticlesDAL.GetArticles(id);
-            viewArticles.genres = DAL.ArticlesDAL.GetGenres();
-
+            viewArticles.bottomBar = false;
 
             return View(viewArticles);
         }
 
         [HttpGet]
-        public ActionResult AjouterArticle()
+        public ActionResult UpdatePanier()
         {
             ViewPanier panier = new ViewPanier();
 
@@ -120,39 +180,8 @@ namespace Client_WEB_SEBO.Controllers
 
             return PartialView(panier);
         }
-        [Route("Accueil/AjouterArticle/{numCommande}/{referenceArticle}/{qty}")]
-        [HttpPost]
-        public ActionResult AjouterArticle(string numCommande, string referenceArticle, int qty)
-        {
 
-            ViewPanier panier = new ViewPanier();
-
-            //on ajoute les lignes de commande grace à la methode du DAL
-            ligne_de_commande ldc = DAL.CommandeDAL.AjouterArticle(numCommande, referenceArticle, qty);
-
-            //on verifie si le traitement s'est bien passé en testant la nullité
-            if (ldc == null)
-            {
-                ldc = new ligne_de_commande();
-                ldc.reference = "CD1";
-                ldc.idCommande = 2;
-                ldc.qte = 1;
-            }
-
-            //on a ajouté un article au panier
-            panier.ajout = true;
-            panier.qtyLastArticle = qty;
-            panier.refLastArticle = referenceArticle;
-
-            //on met à jout la commande du view model
-            panier.commande = DAL.CommandeDAL.GetCommande(numCommande);
-
-            //on met à jour la ligne de commande envoyé à la vue 
-            panier.commande.ligne_de_commande = DAL.CommandeDAL.GetLigneDeCommandes().Where(c => c.idCommande == int.Parse(numCommande));
-
-
-            return PartialView(panier);
-        }
+        
 
     }
 }

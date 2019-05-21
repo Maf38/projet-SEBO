@@ -11,5 +11,7 @@ namespace Client_WEB_SEBO.Models.ViewModel
         public IEnumerable <Article> articles { get; set; }
         public IEnumerable <genre> genres { get; set; }
         public commande commande { get; set; } 
+
+        public bool bottomBar { get; set; } //booleen qui me sert à afficher ou non la bar de filtre du bas
     }
 }

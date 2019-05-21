@@ -1,12 +1,21 @@
 ﻿@model Client_WEB_SEBO.Models.ViewModel.ViewPanier
 
-<div>
-    <span> Le panier contient @Model.commande.getArticleCount() article(s)</span>
+   
+        
 
-    @{ if (Model.ajout)
-        {
-            <span> Vous avez ajouté @Model.qtyLastArticle articcle de reference @Model.refLastArticle au panier</span>
-        }
+    <form method="get" action="/Panier/@Model.commande.id">
+        <button class="cart" data-filter=".dresses">
+            <i class="cart__icon fa fa-shopping-cart"></i>
+            <span class="text-hidden">Shopping cart</span>
+            <span class="cart__count">@Model.commande.getArticleCount()</span>
+        </button>
+    </form>
 
-    }
-</div>
+    <span id="ajout"> hello @Model.commande.e_mail, vous avez ajouté @Model.qtyLastArticle article de reference @Model.refLastArticle au panier </span>
+
+    
+
+
+  
+
+ 

@@ -33,10 +33,17 @@
             </div>
         </a>
 
-        <a data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update="#panierResultat" href="/Accueil/AjouterArticle/@Model.commande.id/@article.reference/1">
-            <i class="fa fa-shopping-cart"></i>
-        </a>
-        <button class="action action--button action--buy"><i class="fa fa-shopping-cart"></i><span class="text-hidden">Add to cart</span></button>
+      
+        @using (Ajax.BeginForm("AjouterArticle", new { numCommande = @Model.commande.id, referenceArticle = article.reference, qty = 1 }, new AjaxOptions
+        {
+            HttpMethod = "POST", // HttpPost
+            InsertionMode = InsertionMode.Replace, // empty the target first
+            UpdateTargetId = "panier" // place content within #update-me
+        }))
+        {
+            <button class="action action--button action--buy"><i class="fa fa-shopping-cart"></i><span class="text-hidden">Add to cart</span></button>
+        }
+        
     </div>
     
 }

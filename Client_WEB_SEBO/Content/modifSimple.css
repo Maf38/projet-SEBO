@@ -3,6 +3,10 @@
 }
 
 .imgpanier{
-    max-width: 15px;
+    max-width: 100px;
 
+}
+
+#ajout{
+    color:orange
 }

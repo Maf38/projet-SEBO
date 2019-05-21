@@ -1,0 +1,62 @@
+﻿@model Client_WEB_SEBO.Models.ViewModel.ViewArticleModel
+
+<nav class="navbar navbar-inverse navbar-expand-md navbar-fixed-top ">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/Catalogue/getArticles">SEBO</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/Accueil/Index">Home</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Catégorie <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        @{ foreach (var genre in Model.genres.GroupBy(c => c.nomCategorie.ToUpper()))
+                            {
+                                                <li>
+                                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+                                                    <a href="/Accueil/ArticleByGenre/@genre.First().nomCategorie">@genre.First().nomCategorie</a>
+                                                    <ul class="dropdown-submenu">
+                                                        @foreach (var type in Model.genres.Where(c => c.nomCategorie.Equals(genre.First().nomCategorie)))
+                                                        {
+
+                                                            <li><a href="/Accueil/ArticleByType/@type.type">@type.type</a></li>
+                                                        }
+                                                    </ul>
+                                                </li>
+                            }
+                        }
+                        
+                    </ul>
+                </li>
+
+            </ul>
+
+
+            <!-- add search form -->
+            <ul class="nav navbar-nav navbar-center">
+                <form class="navbar-form navbar-right" role="search">
+                    <div class="input-group">
+                        <input class="form-control" placeholder="Search this site" type="text">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-default">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>

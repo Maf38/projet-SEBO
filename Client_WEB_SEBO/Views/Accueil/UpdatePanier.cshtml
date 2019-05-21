@@ -1,0 +1,12 @@
+﻿@model Client_WEB_SEBO.Models.ViewModel.ViewPanier
+
+<div>
+    <span> Le panier contient @Model.commande.getArticleCount() article(s)</span>
+
+    @{ if (Model.ajout)
+        {
+            <span> Vous avez ajouté @Model.qtyLastArticle articcle de reference @Model.refLastArticle au panier</span>
+        }
+
+    }
+</div>

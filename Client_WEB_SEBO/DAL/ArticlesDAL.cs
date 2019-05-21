@@ -62,6 +62,49 @@ namespace Client_WEB_SEBO.DAL
             return articles;
         }
 
+
+        public static IEnumerable<Article> GetArticlesByType(string type)
+        {
+            IEnumerable<Article> articles = null;
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(BASE_ADRESS);
+
+                // Called article default GET All records
+                //GetAsync to send a GET request   
+                // PutAsync to send a PUT request
+
+               
+
+                uriREST = "articlesByType/" + type;
+                
+                var responseTask = client.GetAsync(uriREST);
+                responseTask.Wait();
+
+                //To store result of web api response.   
+                var result = responseTask.Result;
+
+                //If success received   
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadAsAsync<IList<Article>>();
+                    readTask.Wait();
+
+                    articles = readTask.Result;
+                }
+                else
+                {
+                    //Error response received   
+                    articles = Enumerable.Empty<Article>();
+                    //ModelState.AddModelError(string.Empty, "Server error try after some time.");
+                }
+
+
+            }
+            return articles;
+        }
+
         public static IEnumerable<Article> GetArticles()
         {
             IEnumerable<Article> articles = GetArticles("NA");
