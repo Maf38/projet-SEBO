@@ -1,49 +1,67 @@
 ﻿@model Client_WEB_SEBO.Models.ViewModel.ViewArticleModel
 
 
-@foreach (Client_WEB_SEBO.Models.Article article in Model.articles)
-{
-    var genre= Model.genres.Where(item => item.type == article.type).FirstOrDefault();
-    string categorie = "grid__item "+ genre.nomCategorie;
-    <div class="@categorie ">
-        <div class="slider">
-            <div class="slider__item">
+<div class="view" id="vuePrincipale">
 
-                @{ if (!article.image.IsEmpty())
-                    {
-                        string urlImage = article.image;
-                        <img src="@urlImage" />
-                    }
-                    else
-                    {
-                        string urlImage = article.image;
-                        <img src="~/Images/no-image-icon.png" />
-                    }
+    <!-- Grid -->
+    <section class="grid grid--loading">
+        <!-- Loader -->
+        <img class="grid__loader" src="~/imgFilterableProductGrid/grid.svg" width="60" alt="Loader image" />
+        <!-- Grid sizer for a fluid Isotope (Masonry) layout -->
+        <div class="grid__sizer"></div>
+        <!-- Grid items -->
+
+
+        @foreach (Client_WEB_SEBO.Models.Article article in Model.articles)
+        {
+            var genre = Model.genres.Where(item => item.type == article.type).FirstOrDefault();
+            string categorie = "grid__item " + genre.nomCategorie;
+            <div class="@categorie ">
+                <div class="slider">
+                    <div class="slider__item">
+
+                        @{ if (!article.image.IsEmpty())
+                            {
+                                string urlImage = article.image;
+                                <img src="@urlImage" />
+                            }
+                            else
+                            {
+                                string urlImage = article.image;
+                                <img src="~/Images/no-image-icon.png" />
+                            }
+                        }
+                    </div>
+                    <div class="slider__item" id="description"><h3>@article.titre</h3>@article.description</div>
+
+                </div>
+                <a href="/Article/Reference/@article.reference">
+                    <div class="meta">
+                        <h3 class="meta__title">@article.titre</h3>
+                        <span class="meta__brand">@article.auteur</span>
+                        <span class="meta__price">€@article.prix</span>
+
+                    </div>
+                </a>
+
+
+                @using (Ajax.BeginForm("AjouterArticle", new { numCommande = @Model.commande.id, referenceArticle = article.reference, qty = 1 }, new AjaxOptions
+                {
+                    HttpMethod = "POST", // HttpPost
+                    InsertionMode = InsertionMode.Replace, // empty the target first
+                    UpdateTargetId = "panier" // place content within #update-me
+                }))
+                {
+                    <button class="action action--button action--buy"><i class="fa fa-shopping-cart"></i><span class="text-hidden">Add to cart</span></button>
                 }
-            </div>
-            <div class="slider__item" id="description"><h3>@article.titre</h3>@article.description</div>
-
-        </div>
-        <a href="/Article/Reference/@article.reference">
-            <div class="meta">
-                <h3 class="meta__title">@article.titre</h3>
-                <span class="meta__brand">@article.auteur</span>
-                <span class="meta__price">€@article.prix</span>
 
             </div>
-        </a>
 
-      
-        @using (Ajax.BeginForm("AjouterArticle", new { numCommande = @Model.commande.id, referenceArticle = article.reference, qty = 1 }, new AjaxOptions
-        {
-            HttpMethod = "POST", // HttpPost
-            InsertionMode = InsertionMode.Replace, // empty the target first
-            UpdateTargetId = "panier" // place content within #update-me
-        }))
-        {
-            <button class="action action--button action--buy"><i class="fa fa-shopping-cart"></i><span class="text-hidden">Add to cart</span></button>
         }
-        
-    </div>
-    
-}
+
+
+
+    </section>
+    <!-- /grid-->
+
+</div>

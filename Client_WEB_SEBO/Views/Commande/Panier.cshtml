@@ -66,10 +66,11 @@
                             <span class="meta__brand">@article.prix</span>
                         </div>
                         <div class="col-sm-2">
-                            <span class="meta__brand">
-                                quantité @Html.Editor("qtyBox" + article.reference, ligneDeCommande.qte.ToString(), new { htmlAttributes = new { type = "number", min = "1", max = "12", @class = "form-control" } })
-
-                            </span>
+                            <button>-</button>
+                            <div id="@article.reference">
+                                <h1>@ligneDeCommande.qte</h1>
+                            </div>
+                            <button>+</button>
                         </div>
 
 
@@ -80,13 +81,21 @@
                 }
             }
         }
+        <div class="row">
+            <div class="col-sm-12 glyphicon-thumbs-up">
+                <button>Valider Commande</button>
 
+            </div>
+        </div>
     </div>
 
+    <br/>
+    <br/>
+    <br/>
 
-<!-- Bottom bar with filter and cart info -->
-    <div class="bar">
-        <!--div class="filter">
+        <!-- Bottom bar with filter and cart info -->
+        <div class="bar">
+            <!--div class="filter">
             <span class="filter__label">Filter: </span>
             <button class="action filter__item filter__item--selected" data-filter="*">All</button>
             <button class="action filter__item" data-filter=".CD"><i class="fas fa-compact-disc"></i><span class="action__text"> CD</span></button>
@@ -94,12 +103,12 @@
             <button class="action filter__item" data-filter=".livre"><i class="fas fa-book"></i><span class="action__text"> Livre</span></button>
 
         </!--div-->
-        <button class="cart" data-filter=".dresses">
-            <i class="cart__icon fa fa-shopping-cart"></i>
-            <span class="text-hidden">Shopping cart</span>
-            <span class="cart__count">0</span>
-        </button>
-    </div>
+            <button class="cart" data-filter=".dresses">
+                <i class="cart__icon fa fa-shopping-cart"></i>
+                <span class="text-hidden">Shopping cart</span>
+                <span class="cart__count">0</span>
+            </button>
+        </div>
 
 
 </body>

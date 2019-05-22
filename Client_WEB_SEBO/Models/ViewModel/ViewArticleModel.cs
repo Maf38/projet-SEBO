@@ -9,6 +9,7 @@ namespace Client_WEB_SEBO.Models.ViewModel
     public class ViewArticleModel
     {
         public IEnumerable <Article> articles { get; set; }
+        public IEnumerable<Article> articlesPromo { get; set; }
         public IEnumerable <genre> genres { get; set; }
         public commande commande { get; set; } 
 

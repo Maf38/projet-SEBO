@@ -113,8 +113,14 @@ namespace WEB_REST_SEBO.Controllers
                 }
                 else
                 {
-                    ligne_de_commande.qte = ligne_de_commande.qte + Math.Abs(qty);
+                
+                        ligne_de_commande.qte = ligne_de_commande.qte + qty;
 
+                    //on interdit les quantités négatives
+                    if (ligne_de_commande.qte <0)
+                    {
+                         ligne_de_commande.qte = 0;
+                    }
                 }
 
 

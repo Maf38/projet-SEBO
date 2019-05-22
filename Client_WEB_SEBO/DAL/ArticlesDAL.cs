@@ -104,6 +104,13 @@ namespace Client_WEB_SEBO.DAL
             }
             return articles;
         }
+        public static IEnumerable<Article> GetPromo()
+        {
+            IEnumerable<Article> articles = GetArticles().Where(art=>art.NomPromo!=null);
+            
+
+            return articles;
+        }
 
         public static IEnumerable<Article> GetArticles()
         {

@@ -18,7 +18,7 @@ namespace Client_WEB_SEBO.Models
         public int qteStock { get; set; }
         public int qteCommande { get; set; }
         public string type { get; set; }
-        public object NomPromo { get; set; }
+        public string NomPromo { get; set; }
         public object idCommande { get; set; }
         public object genre { get; set; }
         public object promo { get; set; }

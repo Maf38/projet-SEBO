@@ -40,7 +40,8 @@ namespace Client_WEB_SEBO.Controllers
         {
             ViewArticleModel viewArticles = new ViewArticleModel();
 
-            
+            viewArticles.articlesPromo = DAL.ArticlesDAL.GetPromo();
+
             viewArticles.genres = DAL.ArticlesDAL.GetGenres();
 
             //gestion du panier
@@ -155,6 +156,12 @@ namespace Client_WEB_SEBO.Controllers
             return View(viewArticles);
         }
 
+        public ActionResult Carousel()
+        {
+
+
+            return View();
+        }
         public ActionResult Recherche(ViewArticleModel viewArticles)
         {
             //on recupère le mot recherché du formulaire

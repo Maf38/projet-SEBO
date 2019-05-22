@@ -1,0 +1,53 @@
+﻿@model Client_WEB_SEBO.Models.ViewModel.ViewArticleModel
+
+<div id="ca-container" class="ca-container">
+    <div class="ca-wrapper">
+        @{ foreach (var article in Model.articlesPromo)
+            {
+
+                <div class="ca-item ca-item-@article.reference">
+                    <div class="ca-item-main">
+                       <img src="~/Images/top-promo.jpg.png" />
+                        @{ if (!article.image.IsEmpty())
+                            {
+                                string urlImage = article.image;
+                                <img src="@urlImage" />
+                            }
+                            else
+                            {
+                                string urlImage = article.image;
+                                <img src="~/Images/no-image-icon.png" />
+                            }
+                        }
+                       
+                        <h3>Black Friday Promo!!!!</h3>
+                        <h4>
+                            <span class="ca-quote">&ldquo;</span>
+                            <span>@article.titre  @article.auteur</span>
+                        </h4>
+                        <a href="#" class="ca-more">more...</a>
+                    </div>
+                    <div class="ca-content-wrapper">
+                        <div class="ca-content">
+                            <h6>Promo du siècle!!!!!</h6>
+                            <a href="#" class="ca-close">close</a>
+                            <div class="ca-content-text">
+                               <p> @article.reference €@article.prix @article.promo</p>
+                                <p>Description du produit:</p>
+                                <p>@article.description</p>
+                            </div>
+                            <ul>
+                                <li><a href="/Panier/@Model.commande.id">Cart</a></li>
+                                <li><a href="#">Share this</a></li>
+                                <li><a href="#">Become a member</a></li>
+                                <li><a href="#">Donate</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+
+            }
+        }
+    </div>
+ </div>

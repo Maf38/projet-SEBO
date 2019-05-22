@@ -156,6 +156,10 @@
     <Content Include="Content\cssFilterableMenu\component.css" />
     <Content Include="Content\cssFilterableMenu\demo.css" />
     <Content Include="Content\cssFilterableMenu\flickity.css" />
+    <Content Include="Content\cssCarousel\demo.css" />
+    <Content Include="Content\cssCarousel\jquery.jscrollpane.css" />
+    <Content Include="Content\cssCarousel\reset.css" />
+    <Content Include="Content\cssCarousel\style.css" />
     <Content Include="Content\modifSimple.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontsFilterableProductGrid\bpicons\bpicons.svg" />
@@ -165,6 +169,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\arrows.png" />
+    <Content Include="Images\cross.png" />
     <Content Include="Images\Icones\basket.png" />
     <Content Include="Images\Icones\false.png" />
     <Content Include="Images\Icones\IconSebo.jpg" />
@@ -178,6 +184,18 @@
     <Content Include="Images\ImagesApple\music-sm.png" />
     <Content Include="Images\ImagesApple\rss-sm.png" />
     <Content Include="Images\ImagesApple\video-sm.png" />
+    <Content Include="Images\Carousel\animal1.png" />
+    <Content Include="Images\Carousel\animal2.png" />
+    <Content Include="Images\Carousel\animal3.png" />
+    <Content Include="Images\Carousel\animal4.png" />
+    <Content Include="Images\Carousel\animal5.png" />
+    <Content Include="Images\Carousel\animal6.png" />
+    <Content Include="Images\Carousel\animal7.png" />
+    <Content Include="Images\Carousel\animal8.png" />
+    <Content Include="Images\Carousel\arrows.png" />
+    <Content Include="Images\Carousel\cross.png" />
+    <Content Include="Images\Carousel\ImageAttribution.txt" />
+    <Content Include="Images\Carousel\pattern.png" />
     <Content Include="Images\imgFilterableProductGrid\dress.png" />
     <Content Include="Images\imgFilterableProductGrid\grid.svg" />
     <Content Include="Images\imgFilterableProductGrid\jacket.png" />
@@ -187,6 +205,7 @@
     <Content Include="Images\LogoSebo.jpg" />
     <Content Include="Images\no-image-icon.png" />
     <Content Include="Images\Sebo.png" />
+    <Content Include="Images\top-promo.jpg.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Images\imgFilterableProductGrid\.DS_Store" />
@@ -198,6 +217,7 @@
     <Content Include="fonts\fontsFilterableProductGrid\pixelfabric-clothes\fonts\pixelfabric-clothes.eot" />
     <Content Include="fonts\fontsFilterableProductGrid\pixelfabric-clothes\fonts\pixelfabric-clothes.ttf" />
     <Content Include="fonts\fontsFilterableProductGrid\pixelfabric-clothes\fonts\pixelfabric-clothes.woff" />
+    <Content Include="Images\Carousel\Thumbs.db" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -214,8 +234,14 @@
     <Content Include="Scripts\jsFilterableProductGrid\isotope.pkgd.min.js" />
     <Content Include="Scripts\jsFilterableProductGrid\main.js" />
     <Content Include="Scripts\jsFilterableProductGrid\modernizr.custom.js" />
+    <Content Include="Scripts\jsCarousel\jquery.contentcarousel.js" />
+    <Content Include="Scripts\jsCarousel\jquery.easing.1.3.js" />
+    <Content Include="Scripts\jsCarousel\jquery.mousewheel.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Content\layoutSeboStyle.css" />
+    <Content Include="Views\Accueil\Carousel.cshtml" />
+    <Content Include="Views\Shared\_ViewAllArticlesPromoCarousel.cshtml" />
+    <None Include="Views\Shared\_Carousel.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -258,6 +284,7 @@
     <Content Include="Views\Accueil\NavBar.cshtml" />
     <Content Include="Views\Accueil\ArticleByType.cshtml" />
     <Content Include="Views\Accueil\Recherche.cshtml" />
+    <Content Include="Scripts\jsCarousel\jquery.contentcarousel.js.bak" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
