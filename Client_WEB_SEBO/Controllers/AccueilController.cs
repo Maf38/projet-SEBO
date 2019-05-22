@@ -155,9 +155,13 @@ namespace Client_WEB_SEBO.Controllers
             return View(viewArticles);
         }
 
-        public ActionResult Recherche(string searchWord)
+        public ActionResult Recherche(ViewArticleModel viewArticles)
         {
-            ViewArticleModel viewArticles = InitArticleModel();
+            //on recupère le mot recherché du formulaire
+            string searchWord = viewArticles.searchWord;
+             
+            //on Re-initialise le modele de donnée. (apparemment il n y que les infos du formulaire qui sont conservées quand on envoie le modele?!)
+            viewArticles = InitArticleModel();
 
             //on recupere tous les articles
             viewArticles.articles = DAL.ArticlesDAL.GetArticles();
@@ -170,16 +174,20 @@ namespace Client_WEB_SEBO.Controllers
                     art.description = "";
                 }
 
-            }    
-                
-                
-                
-               viewArticles.articles= viewArticles.articles.Where(art=>art.reference.Equals(searchWord,StringComparison.OrdinalIgnoreCase) ||
-                                                                        art.description.ToLower().Contains(searchWord.ToLower()) ||
-                                                                        art.editeur.ToLower().Contains(searchWord.ToLower()) ||
-                                                                        art.titre.ToLower().Contains(searchWord.ToLower())   ||
-                                                                        art.auteur.ToLower().Contains(searchWord.ToLower()) 
-            );
+            }
+
+            //application du filtre de recherche uniquement si le mot recherché est supérieur à 3 lettres
+            if (searchWord!=null && searchWord.Length >= 3)
+            {
+                viewArticles.articles = viewArticles.articles.Where(art => art.reference.Equals(searchWord, StringComparison.OrdinalIgnoreCase) ||
+                                                                            art.description.ToLower().Contains(searchWord.ToLower()) ||
+                                                                            art.editeur.ToLower().Contains(searchWord.ToLower()) ||
+                                                                            art.titre.ToLower().Contains(searchWord.ToLower()) ||
+                                                                            art.auteur.ToLower().Contains(searchWord.ToLower())
+               );
+
+
+            }
             viewArticles.bottomBar = false;
 
 
